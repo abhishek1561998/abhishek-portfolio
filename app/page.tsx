@@ -280,7 +280,7 @@ const Navbar = () => {
   );
 };
 
-const Tabs = ({ activeTab, setActiveTab }) => {
+const Tabs = ({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (tab: string) => void }) => {
   const { isDark } = useContext(ThemeContext);
   const tabs = ["All", "Experience", "Projects", "Startups", "Skills"];
   
@@ -381,7 +381,7 @@ const KnowledgePanel = () => {
   );
 };
 
-const SearchResult = ({ title, url, desc, date, tags, website }) => {
+const SearchResult = ({ title, url, desc, date, tags, website }: { title: string; url: string; desc: string; date: string; tags?: string[]; website?: string }) => {
   const { isDark } = useContext(ThemeContext);
   return (
     <div className={`relative group cursor-pointer p-4 rounded-lg transition-all duration-300 hover:translate-x-1 ${isDark ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'}`}>
@@ -423,7 +423,7 @@ const SearchResult = ({ title, url, desc, date, tags, website }) => {
       </div>
       {tags && (
         <div className="mt-2 flex gap-2 flex-wrap">
-          {tags.map(tag => (
+          {tags.map((tag: string) => (
             <span key={tag} className={`text-xs border rounded-full px-3 py-1 transition-all duration-300 hover:scale-105 ${isDark ? 'border-gray-600 text-gray-400 hover:border-blue-500 hover:text-blue-400' : 'border-gray-300 text-gray-500 hover:border-blue-500 hover:text-blue-600'}`}>
               {tag}
             </span>
@@ -437,7 +437,7 @@ const SearchResult = ({ title, url, desc, date, tags, website }) => {
   );
 };
 
-const ProjectCard = ({ project, onClick }) => {
+const ProjectCard = ({ project, onClick }: { project: typeof PROJECTS[0]; onClick: () => void }) => {
   const { isDark } = useContext(ThemeContext);
   return (
     <div 
@@ -475,7 +475,7 @@ const ProjectCard = ({ project, onClick }) => {
   );
 };
 
-const ProjectModal = ({ project, onClose }) => {
+const ProjectModal = ({ project, onClose }: { project: typeof PROJECTS[0] | null; onClose: () => void }) => {
   if (!project) return null;
   
   return (
@@ -506,7 +506,7 @@ const ProjectModal = ({ project, onClose }) => {
           <h2 className="text-2xl font-semibold text-gray-900 mb-2">{project.title}</h2>
           
           <div className="flex flex-wrap gap-2 mb-4">
-            {project.tech.split(', ').map((tech, idx) => (
+            {project.tech.split(', ').map((tech: string, idx: number) => (
               <span 
                 key={idx} 
                 className="text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200"
@@ -559,7 +559,7 @@ const ProjectModal = ({ project, onClose }) => {
   );
 };
 
-const StartupCard = ({ startup }) => {
+const StartupCard = ({ startup }: { startup: typeof STARTUPS[0] }) => {
   const { isDark } = useContext(ThemeContext);
   const IconComponent = startup.icon;
   return (
@@ -596,7 +596,7 @@ const StartupCard = ({ startup }) => {
         
         {/* Tech tags */}
         <div className="flex flex-wrap gap-1.5 mt-2">
-          {startup.tech.slice(0, 3).map((tech, idx) => (
+          {startup.tech.slice(0, 3).map((tech: string, idx: number) => (
             <span 
               key={idx}
               className={`text-xs px-2 py-0.5 rounded ${isDark ? 'bg-gray-700/50 text-gray-400' : 'bg-gray-100 text-gray-500'}`}
