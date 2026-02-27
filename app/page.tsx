@@ -284,6 +284,19 @@ const Tabs = ({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (t
   const { isDark } = useContext(ThemeContext);
   const tabs = ["All", "Experience", "Projects", "Startups", "Skills"];
   
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
+    // Scroll to content section on mobile
+    setTimeout(() => {
+      const contentSection = document.getElementById('content-section');
+      if (contentSection && window.innerWidth < 1024) {
+        const navHeight = 56 + 48; // navbar + tabs height
+        const elementPosition = contentSection.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: elementPosition - navHeight, behavior: 'smooth' });
+      }
+    }, 100);
+  };
+  
   return (
     <div className={`sticky top-14 z-40 border-b ${isDark ? 'border-gray-700 bg-gray-900' : 'border-gray-200 bg-white'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -291,7 +304,7 @@ const Tabs = ({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (t
           {tabs.map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => handleTabClick(tab)}
               className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all ${
                 activeTab === tab 
                   ? "border-blue-500 text-blue-500" 
@@ -912,7 +925,7 @@ export default function Home() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
           <div className="flex flex-col-reverse lg:flex-row lg:justify-start gap-[8rem]">
             {/* Left Column (Search Results) */}
-            <div className="flex-1 max-w-2xl">
+            <div id="content-section" className="flex-1 max-w-2xl">
               
               {/* "Did you mean" Context */}
               <div className="mb-6 text-sm">
