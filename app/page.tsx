@@ -25,7 +25,9 @@ import {
   ShoppingBag,
   Sun,
   Moon,
-  ArrowUp
+  ArrowUp,
+  HelpCircle,
+  Sparkles
 } from 'lucide-react';
 
 // Theme Context
@@ -41,7 +43,7 @@ const PROFILE = {
   about: "Experienced Software Development Engineer with 6+ years of hands-on expertise in the MERN Stack and MySQL. Skilled in architecting scalable full-stack applications using React.js, Next.js, and Node.js/Express, with strong experience in building REST APIs, optimising performance, and delivering maintainable code. Proficient in cloud deployment and infrastructure using AWS, containerization with Docker, and modern hosting platforms like Vercel.",
   stats: [
     { label: "Years Exp", value: "6+" },
-    { label: "Projects", value: "10+" },
+    { label: "Projects", value: "12+" },
     { label: "Startups", value: "3" }
   ],
   socials: [
@@ -108,6 +110,22 @@ const PROJECTS = [
     tech: "React.js, Node.js, MySQL, AWS, Micro-Frontend, Module Federation"
   },
   {
+    title: "HireLoop",
+    role: "Tech Lead",
+    image: "bg-teal-100",
+    description: "Led development of a comprehensive recruitment and hiring management platform. Streamlined the entire hiring process from job posting to candidate onboarding with features like applicant tracking, interview scheduling, candidate pipeline management, and hiring analytics.",
+    link: "http://hireloop.iifetech.com/",
+    tech: "React.js, Node.js, MySQL, AWS, REST APIs"
+  },
+  {
+    title: "iife Tech Assessments",
+    role: "Tech Lead",
+    image: "bg-pink-100",
+    description: "Built a comprehensive assessment platform for creating, managing, and tracking student assessments. Features include easy assignment creation with customizable settings, student management, detailed analytics & reports, secure authentication, and time-based submission tracking.",
+    link: "https://assessment.iifetech.com/",
+    tech: "React.js, Node.js, MySQL, AWS, REST APIs"
+  },
+  {
     title: "Jardin Botanica",
     role: "Full Stack Developer",
     image: "bg-green-100",
@@ -126,7 +144,7 @@ const PROJECTS = [
   {
     title: "AI Agent Assistant - LLM",
     role: "Full Stack Developer",
-    image: "bg-purple-100",
+    image: "bg-sky-100",
     description: "Developed an AI-powered assistant using Next.js with secure Clerk authentication, GraphQL APIs, and responsive Tailwind UI to automate tasks and enhance productivity. Built a scalable, modern full-stack solution with intelligent interactions.",
     link: "https://digitalaiindia.com/",
     tech: "Convex, Clerk, Next.js, Langchain, LangGraph, GraphQL"
@@ -186,7 +204,7 @@ const STARTUPS = [
     description: "Pioneering AI solutions company offering 3D AI Chatbots, AI Call Features, and intelligent automation for businesses. Transforming enterprises with cutting-edge artificial intelligence.",
     icon: Bot,
     link: "https://digitalaiindia.com/",
-    color: "bg-purple-500",
+    color: "bg-cyan-400",
     stats: { models: "10K+", clients: "500+", uptime: "99.9%" },
     tech: ["Next.js", "AI/ML", "LangChain", "OpenAI"]
   },
@@ -223,13 +241,23 @@ const ScrollToTop = () => {
   if (!isVisible) return null;
 
   return (
-    <button
-      onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 p-3 rounded-full shadow-lg transition-all z-50 hover:scale-110 ${isDark ? 'bg-blue-600 text-white hover:bg-blue-500' : 'bg-blue-600 text-white hover:bg-blue-500'}`}
-      aria-label="Scroll to top"
-    >
-      <ArrowUp size={20} />
-    </button>
+    <div className="fixed bottom-6 right-6 z-50">
+      {/* Glow effect */}
+      {isDark && <div className="absolute inset-0 bg-[#6967FB] rounded-2xl blur-xl opacity-40 scale-110" />}
+      
+      <button
+        onClick={scrollToTop}
+        className={`relative p-4 rounded-2xl shadow-lg transition-all hover:scale-110 group ${isDark ? 'bg-[#6967FB] text-white shadow-[#6967FB]/30 hover:shadow-[#6967FB]/50' : 'bg-blue-600 text-white hover:bg-blue-500'}`}
+        aria-label="Scroll to top"
+      >
+        <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+        
+        {/* Animated ring */}
+        {isDark && (
+          <span className="absolute inset-0 rounded-2xl border-2 border-[#6967FB] animate-ping opacity-30" />
+        )}
+      </button>
+    </div>
   );
 };
 
@@ -238,7 +266,7 @@ const ThemeToggle = () => {
   return (
     <button 
       onClick={toggleTheme}
-      className={`p-2 rounded-full transition-all ${isDark ? 'bg-gray-700 text-yellow-400 hover:bg-gray-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+      className={`p-2.5 rounded-full transition-all border ${isDark ? 'bg-white/5 border-white/10 text-yellow-400 hover:bg-white/10 hover:border-white/20' : 'bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200'}`}
       aria-label="Toggle theme"
     >
       {isDark ? <Sun size={18} /> : <Moon size={18} />}
@@ -249,31 +277,42 @@ const ThemeToggle = () => {
 const Navbar = () => {
   const { isDark } = useContext(ThemeContext);
   return (
-    <div className={`sticky top-0 z-50 flex items-center justify-between px-4 h-14 border-b sm:px-6 ${isDark ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'}`}>
+    <div className={`sticky top-0 z-50 flex items-center justify-between px-4 h-16 border-b sm:px-6 backdrop-blur-xl ${isDark ? 'bg-[#0E1A1F]/90 border-white/10' : 'bg-white/80 border-gray-200'}`}>
+      {/* Subtle glow line at bottom */}
+      {isDark && <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#6967FB]/30 to-transparent" />}
+      
       <div className="flex items-center gap-4 w-full max-w-3xl">
-        <span className={`text-2xl font-bold hidden sm:block ${isDark ? 'text-white' : 'text-gray-900'}`}>
-          AD<span className="text-blue-500">.</span>
+        <span className={`text-2xl font-bold hidden sm:block relative ${isDark ? 'text-white' : 'text-gray-900'}`}>
+          <span className={isDark ? 'neon-text' : ''} style={{ background: 'linear-gradient(135deg, #ffffff 0%, #6967FB 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>AD</span>
+          <span className={isDark ? 'neon-text-accent' : ''} style={{ color: '#C8F904' }}>.</span>
         </span>
         
-        {/* Search Bar */}
-        <div className={`flex-1 flex items-center rounded-full px-4 py-2 transition-all max-w-2xl ${isDark ? 'bg-gray-800 border border-gray-700 hover:border-gray-600' : 'bg-gray-100 border border-gray-200 hover:border-gray-300'}`}>
-          <span className={`mr-3 hidden sm:block ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>search:</span>
+        {/* Search Bar with enhanced styling */}
+        <div className={`relative flex-1 flex items-center rounded-2xl px-5 py-3 transition-all max-w-2xl group ${isDark ? 'bg-white/5 border border-white/10 hover:border-[#6967FB]/50 hover:bg-white/10' : 'bg-gray-100 border border-gray-200 hover:border-gray-300'}`}>
+          {/* Hover glow effect */}
+          {isDark && <div className="absolute inset-0 rounded-2xl bg-[#6967FB]/5 opacity-0 group-hover:opacity-100 transition-opacity" />}
+          
+          <span className={`relative mr-3 hidden sm:block text-sm font-medium ${isDark ? 'text-white/40' : 'text-gray-400'}`}>search:</span>
           <input 
             type="text" 
             value={`${PROFILE.name} software engineer`} 
             readOnly 
-            className={`flex-1 outline-none bg-transparent w-full ${isDark ? 'text-gray-200' : 'text-gray-800'}`}
+            className={`relative flex-1 outline-none bg-transparent w-full ${isDark ? 'text-white/80' : 'text-gray-800'}`}
           />
-          <div className={`flex items-center gap-3 pl-3 ml-2 ${isDark ? 'border-l border-gray-700' : 'border-l border-gray-300'}`}>
-             <Search size={20} className={`cursor-pointer ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900'}`} />
+          <div className={`relative flex items-center gap-3 pl-3 ml-2 ${isDark ? 'border-l border-white/10' : 'border-l border-gray-300'}`}>
+             <Search size={20} className={`cursor-pointer transition-all ${isDark ? 'text-white/40 hover:text-[#C8F904] hover:scale-110' : 'text-gray-500 hover:text-gray-900'}`} />
           </div>
         </div>
       </div>
 
       <div className="flex items-center gap-3 sm:gap-4 pl-4">
         <ThemeToggle />
-        <div className={`h-9 w-9 rounded-full overflow-hidden border-2 cursor-pointer transition-all ${isDark ? 'border-gray-600 hover:border-blue-500' : 'border-gray-300 hover:border-blue-500'}`}>
-          <img src="/profile.png" alt={PROFILE.name} className="w-full h-full object-cover" />
+        <div className="relative group">
+          {/* Glow ring on hover */}
+          {isDark && <div className="absolute inset-0 rounded-full bg-[#6967FB] blur-md opacity-0 group-hover:opacity-50 transition-opacity scale-110" />}
+          <div className={`relative h-10 w-10 rounded-full overflow-hidden border-2 cursor-pointer transition-all ${isDark ? 'border-white/20 group-hover:border-[#6967FB] group-hover:shadow-lg group-hover:shadow-[#6967FB]/30' : 'border-gray-300 hover:border-blue-500'}`}>
+            <img src="/profile.png" alt={PROFILE.name} className="w-full h-full object-cover" />
+          </div>
         </div>
       </div>
     </div>
@@ -286,11 +325,10 @@ const Tabs = ({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (t
   
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
-    // Scroll to content section on mobile
     setTimeout(() => {
       const contentSection = document.getElementById('content-section');
       if (contentSection && window.innerWidth < 1024) {
-        const navHeight = 56 + 48; // navbar + tabs height
+        const navHeight = 64 + 52;
         const elementPosition = contentSection.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: elementPosition - navHeight, behavior: 'smooth' });
       }
@@ -298,22 +336,30 @@ const Tabs = ({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (t
   };
   
   return (
-    <div className={`sticky top-14 z-40 border-b ${isDark ? 'border-gray-700 bg-gray-900' : 'border-gray-200 bg-white'}`}>
+    <div className={`sticky top-16 z-40 border-b backdrop-blur-xl ${isDark ? 'border-white/10 bg-[#0E1A1F]/80' : 'border-gray-200 bg-white/80'}`}>
+      {/* Subtle glow line */}
+      {isDark && <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#6967FB]/20 to-transparent" />}
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
+        <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-1">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => handleTabClick(tab)}
-              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all ${
+              className={`relative px-5 py-3.5 text-sm font-medium whitespace-nowrap transition-all rounded-lg ${
                 activeTab === tab 
-                  ? "border-blue-500 text-blue-500" 
+                  ? isDark 
+                    ? "text-[#C8F904] bg-[#C8F904]/10" 
+                    : "text-blue-600 bg-blue-50"
                   : isDark 
-                    ? "border-transparent text-gray-400 hover:text-gray-200" 
-                    : "border-transparent text-gray-500 hover:text-gray-900"
+                    ? "text-white/50 hover:text-white/80 hover:bg-white/5" 
+                    : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
               }`}
             >
               {tab}
+              {activeTab === tab && isDark && (
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-[#C8F904] rounded-full" />
+              )}
             </button>
           ))}
         </div>
@@ -325,66 +371,91 @@ const Tabs = ({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (t
 const KnowledgePanel = () => {
   const { isDark } = useContext(ThemeContext);
   return (
-    <div className={`rounded-xl overflow-hidden mb-6 ${isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200 shadow-sm'}`}>
+    <div className={`relative rounded-2xl overflow-hidden mb-6 ${isDark ? 'gradient-border glow' : 'bg-white border border-gray-200 shadow-sm'}`}>
+      {/* Animated glow background */}
+      {isDark && (
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#6967FB] rounded-full blur-[80px]" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-[#C8F904] rounded-full blur-[60px] opacity-30" />
+        </div>
+      )}
+      
       {/* Profile Section - Compact */}
-      <div className="p-4 text-center">
-        <img 
-          src="/profile.png" 
-          alt={PROFILE.name}
-          className={`w-20 h-20 rounded-full mx-auto mb-3 object-cover ${isDark ? 'border-3 border-gray-700' : 'border-3 border-gray-100'}`}
-        />
-        <h1 className={`text-lg font-semibold mb-0.5 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+      <div className="relative p-5 text-center">
+        {/* Profile image with glowing ring */}
+        <div className="relative inline-block mb-4">
+          <div className={`absolute inset-0 rounded-full ${isDark ? 'animate-pulse bg-[#6967FB]/30 blur-md scale-110' : ''}`} />
+          <img 
+            src="/profile.png" 
+            alt={PROFILE.name}
+            className={`relative w-24 h-24 rounded-full mx-auto object-cover ${isDark ? 'border-2 border-[#6967FB] shadow-xl shadow-[#6967FB]/30' : 'border-3 border-gray-100'}`}
+          />
+          <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full flex items-center justify-center glow-accent" style={{ backgroundColor: '#C8F904' }}>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#0E1A1F] animate-pulse" />
+          </div>
+        </div>
+        
+        <h1 className={`text-xl font-semibold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
           {PROFILE.name}
         </h1>
-        <p className={`text-xs mb-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{PROFILE.title}</p>
+        <p className={`text-xs mb-4 ${isDark ? 'text-white/50' : 'text-gray-500'}`}>{PROFILE.title}</p>
         
-        <div className="flex gap-2 mb-4">
-          <a href={`mailto:${PROFILE.email}`} className="flex-1 bg-blue-600 text-white font-medium py-1.5 rounded-full text-sm hover:bg-blue-700 transition-all flex items-center justify-center gap-1.5">
-             <Mail size={14} /> Contact
+        <div className="flex gap-2 mb-5">
+          <a href={`mailto:${PROFILE.email}`} className={`relative flex-1 font-medium py-3 rounded-xl text-sm transition-all flex items-center justify-center gap-2 overflow-hidden group ${isDark ? 'bg-[#6967FB] text-white hover:shadow-xl hover:shadow-[#6967FB]/40' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
+             <span className="relative z-10 flex items-center gap-2"><Mail size={14} /> Contact</span>
+             {isDark && <div className="absolute inset-0 bg-gradient-to-r from-[#6967FB] via-[#8583fc] to-[#6967FB] opacity-0 group-hover:opacity-100 transition-opacity" />}
           </a>
-          <a href={PROFILE.socials[2]?.link || "#"} target="_blank" rel="noopener noreferrer" className={`p-1.5 border rounded-full transition-colors ${isDark ? 'border-gray-600 text-gray-400 hover:text-white hover:border-gray-500' : 'border-gray-300 text-gray-500 hover:text-gray-900 hover:border-gray-400'}`}>
+          <a href={PROFILE.socials[2]?.link || "#"} target="_blank" rel="noopener noreferrer" className={`p-3 rounded-xl transition-all ${isDark ? 'bg-white/5 border border-white/10 text-white/60 hover:text-[#C8F904] hover:border-[#C8F904]/50 hover:shadow-lg hover:shadow-[#C8F904]/10' : 'border border-gray-300 text-gray-500 hover:text-gray-900 hover:border-gray-400'}`}>
              <Globe size={16} />
           </a>
         </div>
 
-        <p className={`text-xs leading-relaxed mb-3 text-left ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+        <p className={`text-xs leading-relaxed mb-4 text-left ${isDark ? 'text-white/50' : 'text-gray-600'}`}>
           {PROFILE.about}
         </p>
 
-        <div className={`border-t pt-3 grid grid-cols-3 gap-3 mb-3 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+        {/* Stats with glowing numbers */}
+        <div className={`border-t pt-4 grid grid-cols-3 gap-3 mb-4 ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
           {PROFILE.stats.map((stat, idx) => (
-            <div key={idx} className="text-center">
-              <div className={`font-bold text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>{stat.value}</div>
-              <div className={`text-[10px] ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>{stat.label}</div>
+            <div key={idx} className="text-center group cursor-default">
+              <div className={`font-bold text-xl transition-all ${isDark ? 'text-[#C8F904] group-hover:neon-text-accent' : 'text-gray-900'}`}>{stat.value}</div>
+              <div className={`text-[10px] uppercase tracking-wider ${isDark ? 'text-white/40' : 'text-gray-500'}`}>{stat.label}</div>
             </div>
           ))}
         </div>
 
-        <div className="space-y-2 text-left">
-          <div className={`flex items-center gap-2 text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            <MapPin size={14} className={isDark ? 'text-gray-500' : 'text-gray-400'} />
-            <span>{PROFILE.location}</span>
-          </div>
-          <div className={`flex items-center gap-2 text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            <Briefcase size={14} className={isDark ? 'text-gray-500' : 'text-gray-400'} />
-            <span>Works at <strong className={isDark ? 'text-white' : 'text-gray-900'}>iifetech Pvt. Ltd.</strong></span>
-          </div>
-          <a href={`tel:${PROFILE.phone}`} className={`flex items-center gap-2 text-xs transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
-            <Phone size={14} className={isDark ? 'text-gray-500' : 'text-gray-400'} />
+        <div className="space-y-3 text-left">
+          {[
+            { icon: MapPin, text: PROFILE.location },
+            { icon: Briefcase, text: <>Works at <strong className={isDark ? 'text-white' : 'text-gray-900'}>iifetech Pvt. Ltd.</strong></> },
+          ].map((item, idx) => (
+            <div key={idx} className={`flex items-center gap-3 text-xs p-2 rounded-lg transition-all ${isDark ? 'text-white/60 hover:bg-white/5' : 'text-gray-600'}`}>
+              <div className={`p-1.5 rounded-lg ${isDark ? 'bg-[#6967FB]/20' : 'bg-gray-100'}`}>
+                <item.icon size={12} className={isDark ? 'text-[#6967FB]' : 'text-gray-400'} />
+              </div>
+              <span>{item.text}</span>
+            </div>
+          ))}
+          <a href={`tel:${PROFILE.phone}`} className={`flex items-center gap-3 text-xs p-2 rounded-lg transition-all ${isDark ? 'text-white/60 hover:bg-white/5 hover:text-[#C8F904]' : 'text-gray-600 hover:text-gray-900'}`}>
+            <div className={`p-1.5 rounded-lg ${isDark ? 'bg-[#6967FB]/20' : 'bg-gray-100'}`}>
+              <Phone size={12} className={isDark ? 'text-[#6967FB]' : 'text-gray-400'} />
+            </div>
             <span>+91 {PROFILE.phone}</span>
           </a>
-          <a href={`mailto:${PROFILE.email}`} className={`flex items-center gap-2 text-xs transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
-            <Mail size={14} className={isDark ? 'text-gray-500' : 'text-gray-400'} />
+          <a href={`mailto:${PROFILE.email}`} className={`flex items-center gap-3 text-xs p-2 rounded-lg transition-all ${isDark ? 'text-white/60 hover:bg-white/5 hover:text-[#C8F904]' : 'text-gray-600 hover:text-gray-900'}`}>
+            <div className={`p-1.5 rounded-lg ${isDark ? 'bg-[#6967FB]/20' : 'bg-gray-100'}`}>
+              <Mail size={12} className={isDark ? 'text-[#6967FB]' : 'text-gray-400'} />
+            </div>
             <span>{PROFILE.email}</span>
           </a>
           
-          <div className="pt-3 flex gap-2 overflow-x-auto pb-1">
+          <div className="pt-4 flex gap-3 overflow-x-auto pb-1">
             {PROFILE.socials.map((social) => (
-              <a key={social.name} href={social.link} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-0.5 min-w-[50px] cursor-pointer group">
-                <div className={`h-8 w-8 rounded-full flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all ${isDark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
-                  <social.icon size={16} />
+              <a key={social.name} href={social.link} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1.5 min-w-[55px] cursor-pointer group">
+                <div className={`h-11 w-11 rounded-xl flex items-center justify-center transition-all ${isDark ? 'bg-white/5 border border-white/10 text-white/60 group-hover:bg-[#6967FB] group-hover:border-[#6967FB] group-hover:text-white group-hover:shadow-lg group-hover:shadow-[#6967FB]/30 group-hover:scale-110' : 'bg-gray-100 text-gray-500 group-hover:bg-blue-600 group-hover:text-white'}`}>
+                  <social.icon size={18} />
                 </div>
-                <span className={`text-[10px] group-hover:text-blue-500 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>{social.name}</span>
+                <span className={`text-[10px] transition-colors ${isDark ? 'text-white/40 group-hover:text-[#C8F904]' : 'text-gray-500 group-hover:text-blue-500'}`}>{social.name}</span>
             </a>
           ))}
         </div>
@@ -397,55 +468,67 @@ const KnowledgePanel = () => {
 const SearchResult = ({ title, url, desc, date, tags, website }: { title: string; url: string; desc: string; date: string; tags?: string[]; website?: string }) => {
   const { isDark } = useContext(ThemeContext);
   return (
-    <div className={`relative group cursor-pointer p-4 rounded-lg transition-all duration-300 hover:translate-x-1 ${isDark ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'}`}>
-      {/* Left accent line on hover */}
-      <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 group-hover:h-3/4 transition-all duration-300 rounded-full ${isDark ? 'bg-blue-500' : 'bg-blue-600'}`} />
+    <div className={`relative group cursor-pointer p-5 rounded-2xl transition-all duration-300 ${isDark ? 'hover:bg-white/5 hover:border-white/10 border border-transparent' : 'hover:bg-gray-50'}`}>
+      {/* Animated left accent line */}
+      <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 group-hover:h-3/4 transition-all duration-500 rounded-full ${isDark ? 'bg-gradient-to-b from-[#6967FB] via-[#C8F904] to-[#6967FB]' : 'bg-blue-600'}`} />
       
-      <div className="flex items-center gap-2 mb-1">
-        <div className={`h-7 w-7 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 group-hover:scale-110 ${isDark ? 'bg-gray-700 text-gray-300 group-hover:bg-blue-600 group-hover:text-white' : 'bg-gray-200 text-gray-600 group-hover:bg-blue-600 group-hover:text-white'}`}>
+      {/* Glow on hover */}
+      {isDark && (
+        <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-0 group-hover:h-20 bg-[#6967FB] blur-xl opacity-0 group-hover:opacity-50 transition-all duration-500" />
+      )}
+      
+      <div className="flex items-center gap-3 mb-2">
+        <div className={`relative h-10 w-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all duration-300 group-hover:scale-110 ${isDark ? 'bg-white/5 border border-white/10 text-white/70 group-hover:bg-[#6967FB] group-hover:border-[#6967FB] group-hover:text-white group-hover:shadow-lg group-hover:shadow-[#6967FB]/30' : 'bg-gray-200 text-gray-600 group-hover:bg-blue-600 group-hover:text-white'}`}>
           {title.charAt(0)}
         </div>
-        <div className="flex flex-col">
-          <span className={`text-sm leading-tight ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{title}</span>
-          <span className={`text-xs leading-tight ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{url}</span>
+        <div className="flex flex-col flex-1">
+          <span className={`text-sm font-medium leading-tight ${isDark ? 'text-white/90' : 'text-gray-700'}`}>{title}</span>
+          <span className={`text-xs leading-tight ${isDark ? 'text-white/40' : 'text-gray-400'}`}>{url}</span>
         </div>
         {website && (
           <a 
             href={website} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className={`ml-auto p-1.5 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 ${isDark ? 'text-gray-400 hover:text-blue-400 hover:bg-gray-700' : 'text-gray-500 hover:text-blue-600 hover:bg-gray-200'}`}
+            className={`p-2.5 rounded-xl transition-all duration-300 opacity-0 group-hover:opacity-100 ${isDark ? 'text-white/50 hover:text-[#C8F904] hover:bg-white/10 border border-transparent hover:border-white/10' : 'text-gray-500 hover:text-blue-600 hover:bg-gray-200'}`}
             onClick={(e) => e.stopPropagation()}
           >
             <ExternalLink size={16} />
           </a>
         )}
       </div>
-      <h3 className={`text-lg font-normal mb-1 transition-colors duration-300 ${isDark ? 'text-blue-400 group-hover:text-blue-300' : 'text-blue-600 group-hover:text-blue-700'}`}>
+      
+      <h3 className={`text-lg font-medium mb-2 transition-colors duration-300 ${isDark ? 'text-[#6967FB] group-hover:text-[#8583fc]' : 'text-blue-600 group-hover:text-blue-700'}`}>
         {website ? (
-          <a href={website} target="_blank" rel="noopener noreferrer" className="group-hover:underline">
+          <a href={website} target="_blank" rel="noopener noreferrer" className="hover:underline decoration-[#6967FB]/50">
             {title} - {desc.split('.')[0]}...
           </a>
         ) : (
-          <span className="group-hover:underline">{title} - {desc.split('.')[0]}...</span>
+          <span>{title} - {desc.split('.')[0]}...</span>
         )}
       </h3>
-      <div className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-        <span className={`text-xs mr-2 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{date} —</span>
+      
+      <div className={`text-sm leading-relaxed ${isDark ? 'text-white/50' : 'text-gray-600'}`}>
+        <span className={`inline-flex items-center gap-1 text-[10px] mr-2 px-2 py-0.5 rounded-full ${isDark ? 'bg-white/5 text-white/40' : 'bg-gray-100 text-gray-400'}`}>{date}</span>
         {desc}
       </div>
+      
       {tags && (
-        <div className="mt-2 flex gap-2 flex-wrap">
-          {tags.map((tag: string) => (
-            <span key={tag} className={`text-xs border rounded-full px-3 py-1 transition-all duration-300 hover:scale-105 ${isDark ? 'border-gray-600 text-gray-400 hover:border-blue-500 hover:text-blue-400' : 'border-gray-300 text-gray-500 hover:border-blue-500 hover:text-blue-600'}`}>
+        <div className="mt-4 flex gap-2 flex-wrap">
+          {tags.map((tag: string, idx: number) => (
+            <span 
+              key={tag} 
+              className={`text-xs rounded-lg px-3 py-1.5 transition-all duration-300 hover:scale-105 ${isDark ? 'bg-white/5 border border-white/10 text-white/50 hover:border-[#6967FB]/50 hover:text-[#6967FB] hover:bg-[#6967FB]/10 hover:shadow-lg hover:shadow-[#6967FB]/10' : 'border border-gray-300 text-gray-500 hover:border-blue-500 hover:text-blue-600'}`}
+              style={{ animationDelay: `${idx * 50}ms` }}
+            >
               {tag}
             </span>
           ))}
         </div>
       )}
       
-      {/* Bottom separator */}
-      <div className={`absolute bottom-0 left-4 right-4 h-px ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`} />
+      {/* Bottom separator with gradient */}
+      <div className={`absolute bottom-0 left-5 right-5 h-px ${isDark ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gray-200'}`} />
     </div>
   );
 };
@@ -454,34 +537,57 @@ const ProjectCard = ({ project, onClick }: { project: typeof PROJECTS[0]; onClic
   const { isDark } = useContext(ThemeContext);
   return (
     <div 
-      className={`border rounded-xl overflow-hidden transition-all flex flex-col h-full cursor-pointer group ${isDark ? 'border-gray-700 bg-gray-800 hover:border-gray-600' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm'}`}
+      className={`relative rounded-2xl overflow-hidden transition-all flex flex-col h-full cursor-pointer group ${isDark ? 'gradient-border hover:glow' : 'border border-gray-200 bg-white hover:border-gray-300 shadow-sm'}`}
       onClick={onClick}
     >
-      <div className={`h-32 ${project.image} w-full relative opacity-60 group-hover:opacity-80 transition-opacity`}>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Layers size={32} className="text-gray-500 opacity-50" />
+      {/* Hover glow effect */}
+      {isDark && (
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-20 bg-[#6967FB] rounded-full blur-[60px] opacity-30" />
         </div>
-        <div className={`absolute bottom-2 right-2 text-xs px-2 py-1 rounded ${isDark ? 'bg-gray-900/80 text-gray-300' : 'bg-white/90 text-gray-600'}`}>
-          Project
+      )}
+      
+      <div className={`relative h-36 ${project.image} w-full overflow-hidden`}>
+        {/* Gradient overlay */}
+        <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-b from-transparent via-transparent to-[#0E1A1F]' : ''}`} />
+        
+        {/* Animated grid pattern */}
+        {isDark && <div className="absolute inset-0 dot-pattern opacity-30" />}
+        
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className={`p-4 rounded-2xl ${isDark ? 'bg-white/5 backdrop-blur-sm border border-white/10' : ''}`}>
+            <Layers size={28} className={isDark ? 'text-[#6967FB]' : 'text-gray-500 opacity-50'} />
+          </div>
+        </div>
+        
+        <div className={`absolute top-3 right-3 text-[10px] px-3 py-1.5 rounded-full font-medium ${isDark ? 'bg-[#6967FB]/20 text-[#6967FB] border border-[#6967FB]/30 backdrop-blur-sm' : 'bg-white/90 text-gray-600'}`}>
+          {project.role}
         </div>
       </div>
-      <div className="p-4 flex flex-col flex-1">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-4 h-4 rounded bg-blue-600 flex items-center justify-center">
-            <Code size={10} className="text-white" />
+      
+      <div className="relative p-5 flex flex-col flex-1">
+        <div className="flex items-center gap-2 mb-3">
+          <div className={`w-6 h-6 rounded-lg flex items-center justify-center ${isDark ? 'bg-[#6967FB]/20 border border-[#6967FB]/30' : 'bg-blue-100'}`}>
+            <Code size={12} className={isDark ? 'text-[#6967FB]' : 'text-blue-600'} />
           </div>
-          <span className={`text-xs truncate ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{project.tech}</span>
+          <span className={`text-[10px] truncate uppercase tracking-wider ${isDark ? 'text-white/40' : 'text-gray-400'}`}>{project.tech.split(',')[0]}</span>
         </div>
-        <h3 className={`text-lg font-medium mb-2 group-hover:text-blue-500 ${isDark ? 'text-white' : 'text-gray-900'}`}>{project.title}</h3>
-        <p className={`text-sm mb-4 flex-1 line-clamp-3 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{project.description}</p>
-        <div className={`flex items-center justify-between text-xs mt-auto pt-3 border-t ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
-          <span className={isDark ? 'text-gray-500' : 'text-gray-400'}>{project.role}</span>
+        
+        <h3 className={`text-lg font-semibold mb-2 transition-colors ${isDark ? 'text-white group-hover:text-[#C8F904]' : 'text-gray-900 group-hover:text-blue-500'}`}>{project.title}</h3>
+        <p className={`text-sm mb-4 flex-1 line-clamp-2 ${isDark ? 'text-white/50' : 'text-gray-600'}`}>{project.description}</p>
+        
+        <div className={`flex items-center justify-between text-xs mt-auto pt-4 border-t ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
           <div className="flex items-center gap-2">
             {project.link === "confidential" && (
-              <span className="text-yellow-500 text-xs">🔒</span>
+              <span className="flex items-center gap-1 text-yellow-500/80 text-xs bg-yellow-500/10 px-2 py-1 rounded-full">🔒 Private</span>
             )}
-            <span className="text-blue-500 font-medium">View Details →</span>
           </div>
+          <span className={`font-medium transition-all flex items-center gap-1 ${isDark ? 'text-[#C8F904] group-hover:gap-2' : 'text-blue-500'}`}>
+            View Details 
+            <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
         </div>
       </div>
     </div>
@@ -489,71 +595,92 @@ const ProjectCard = ({ project, onClick }: { project: typeof PROJECTS[0]; onClic
 };
 
 const ProjectModal = ({ project, onClose }: { project: typeof PROJECTS[0] | null; onClose: () => void }) => {
+  const { isDark } = useContext(ThemeContext);
   if (!project) return null;
   
   return (
     <div 
-      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
       <div 
-        className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+        className={`relative rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-fadeInUp ${isDark ? 'gradient-border glow' : 'bg-white'}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className={`h-48 ${project.image} w-full relative`}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Layers size={64} className="text-gray-400 opacity-50" />
-          </div>
-          <button 
-            onClick={onClose}
-            className="absolute top-4 right-4 bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-colors"
-          >
-            <X size={20} className="text-gray-600" />
-          </button>
-          <div className="absolute bottom-4 left-4 bg-black/60 text-white text-sm px-3 py-1 rounded-full">
-            {project.role}
-          </div>
-        </div>
+        {/* Background glow effects */}
+        {isDark && (
+          <>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#6967FB] rounded-full blur-[100px] opacity-20" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#C8F904] rounded-full blur-[80px] opacity-10" />
+          </>
+        )}
         
-        <div className="p-6">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">{project.title}</h2>
-          
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.tech.split(', ').map((tech: string, idx: number) => (
-              <span 
-                key={idx} 
-                className="text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200"
-              >
-                {tech}
-              </span>
-            ))}
+        <div className="relative max-h-[90vh] overflow-y-auto">
+          <div className={`relative h-56 ${project.image} w-full overflow-hidden`}>
+            {/* Gradient overlay */}
+            <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-b from-transparent via-transparent to-[#0E1A1F]' : ''}`} />
+            
+            {/* Dot pattern */}
+            {isDark && <div className="absolute inset-0 dot-pattern opacity-20" />}
+            
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className={`p-6 rounded-3xl ${isDark ? 'bg-white/5 backdrop-blur-sm border border-white/10' : ''}`}>
+                <Layers size={48} className={isDark ? 'text-[#6967FB]' : 'text-gray-400 opacity-50'} />
+              </div>
+            </div>
+            
+            <button 
+              onClick={onClose}
+              className={`absolute top-4 right-4 rounded-xl p-2.5 transition-all group ${isDark ? 'bg-[#0E1A1F]/80 hover:bg-[#0E1A1F] text-white/80 backdrop-blur-sm border border-white/10 hover:border-[#C8F904]/50' : 'bg-white/90 hover:bg-white text-gray-600 shadow-md'}`}
+            >
+              <X size={20} className="group-hover:rotate-90 transition-transform" />
+            </button>
+            
+            <div className={`absolute bottom-4 left-4 text-sm px-4 py-2 rounded-xl backdrop-blur-sm font-medium ${isDark ? 'bg-[#6967FB]/20 text-[#6967FB] border border-[#6967FB]/30' : 'bg-black/60 text-white'}`}>
+              {project.role}
+            </div>
           </div>
           
-          <div className="mb-6">
-            <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2">Description</h3>
-            <p className="text-gray-700 leading-relaxed">{project.description}</p>
-          </div>
-          
-          <div className="flex gap-3 pt-4 border-t border-gray-100">
-            {project.link === "confidential" ? (
+          <div className="relative p-8">
+            <h2 className={`text-2xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>{project.title}</h2>
+            
+            <div className="flex flex-wrap gap-2 mb-6">
+              {project.tech.split(', ').map((tech: string, idx: number) => (
+                <span 
+                  key={idx} 
+                  className={`text-xs px-4 py-2 rounded-xl border transition-all hover:scale-105 ${isDark ? 'bg-[#6967FB]/10 text-[#6967FB] border-[#6967FB]/30 hover:bg-[#6967FB]/20' : 'bg-blue-50 text-blue-700 border-blue-200'}`}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+            
+            <div className="mb-8">
+              <h3 className={`text-xs font-semibold uppercase tracking-wider mb-3 ${isDark ? 'text-white/40' : 'text-gray-500'}`}>About this project</h3>
+              <p className={`leading-relaxed ${isDark ? 'text-white/70' : 'text-gray-700'}`}>{project.description}</p>
+            </div>
+            
+            <div className={`flex gap-4 pt-6 border-t ${isDark ? 'border-white/10' : 'border-gray-100'}`}>
+              {project.link === "confidential" ? (
+                <button 
+                  className={`relative flex-1 flex items-center justify-center gap-2 py-4 px-6 rounded-xl font-medium cursor-not-allowed overflow-hidden ${isDark ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' : 'bg-orange-100 text-orange-600'}`}
+                  disabled
+                >
+                  🔒 Confidential Project
+                </button>
+              ) : project.link && project.link !== "#" ? (
+                <a 
+                  href={project.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`relative flex-1 flex items-center justify-center gap-2 py-4 px-6 rounded-xl font-medium transition-all group overflow-hidden ${isDark ? 'bg-[#6967FB] text-white hover:shadow-xl hover:shadow-[#6967FB]/40' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
+                >
+                  <span className="relative z-10 flex items-center gap-2">View Live Project <ExternalLink size={16} className="group-hover:rotate-12 transition-transform" /></span>
+                  {isDark && <div className="absolute inset-0 bg-gradient-to-r from-[#6967FB] via-[#8583fc] to-[#6967FB] opacity-0 group-hover:opacity-100 transition-opacity" />}
+                </a>
+              ) : (
               <button 
-                className="flex-1 flex items-center justify-center gap-2 bg-orange-100 text-orange-600 py-3 px-4 rounded-lg font-medium cursor-not-allowed"
-                disabled
-              >
-                🔒 Confidential Project
-              </button>
-            ) : project.link && project.link !== "#" ? (
-              <a 
-                href={project.link} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-              >
-                View Live Project <ExternalLink size={16} />
-              </a>
-            ) : (
-              <button 
-                className="flex-1 flex items-center justify-center gap-2 bg-gray-100 text-gray-400 py-3 px-4 rounded-lg font-medium cursor-not-allowed"
+                className={`flex-1 flex items-center justify-center gap-2 py-4 px-6 rounded-xl font-medium cursor-not-allowed ${isDark ? 'bg-white/5 text-white/30 border border-white/10' : 'bg-gray-100 text-gray-400'}`}
                 disabled
               >
                 Live Link Coming Soon
@@ -561,10 +688,11 @@ const ProjectModal = ({ project, onClose }: { project: typeof PROJECTS[0] | null
             )}
             <button 
               onClick={onClose}
-              className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition-colors"
+              className={`px-8 py-4 rounded-xl font-medium transition-all ${isDark ? 'bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:border-[#C8F904]/50 hover:text-[#C8F904]' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'}`}
             >
               Close
             </button>
+          </div>
           </div>
         </div>
       </div>
@@ -580,45 +708,58 @@ const StartupCard = ({ startup }: { startup: typeof STARTUPS[0] }) => {
       href={startup.link} 
       target="_blank" 
       rel="noopener noreferrer"
-      className={`border rounded-xl p-4 transition-all group flex gap-4 ${isDark ? 'border-gray-700 bg-gray-800 hover:border-blue-500/50 hover:bg-gray-800/80' : 'border-gray-200 bg-white hover:border-blue-400 hover:shadow-md'}`}
+      className={`relative rounded-2xl p-5 transition-all group flex gap-4 overflow-hidden ${isDark ? 'gradient-border hover:glow' : 'border border-gray-200 bg-white hover:border-blue-400 hover:shadow-md'}`}
     >
-      {/* Left: Icon */}
-      <div className={`${startup.color} p-3 rounded-xl text-white shrink-0 h-fit`}>
-        <IconComponent size={24} />
+      {/* Background glow effect */}
+      {isDark && (
+        <>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#6967FB] rounded-full blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-[#C8F904] rounded-full blur-[60px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+        </>
+      )}
+      
+      {/* Left: Icon with glow */}
+      <div className="relative">
+        <div className={`absolute inset-0 rounded-xl blur-md opacity-50 ${startup.color}`} />
+        <div className={`relative ${startup.color} p-4 rounded-xl text-white shrink-0 h-fit shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+          <IconComponent size={24} />
+        </div>
       </div>
       
       {/* Middle: Content */}
-      <div className="flex-1 min-w-0">
+      <div className="relative flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
-          <h3 className={`font-semibold group-hover:text-blue-500 transition-colors truncate ${isDark ? 'text-white' : 'text-gray-900'}`}>
+          <h3 className={`font-semibold transition-colors truncate ${isDark ? 'text-white group-hover:text-[#C8F904]' : 'text-gray-900 group-hover:text-blue-500'}`}>
             {startup.name}
           </h3>
-          <ExternalLink size={14} className={`shrink-0 opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
+          <div className={`opacity-0 group-hover:opacity-100 transition-all transform translate-x-0 group-hover:translate-x-1 ${isDark ? 'text-[#C8F904]' : 'text-blue-600'}`}>
+            <ExternalLink size={14} />
+          </div>
         </div>
-        <p className={`text-xs mb-2 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>{startup.tagline}</p>
+        <p className={`text-xs mb-2 ${isDark ? 'text-white/40' : 'text-gray-500'}`}>{startup.tagline}</p>
         
         {/* Stats inline */}
         <div className="flex items-center gap-3 flex-wrap">
           {Object.entries(startup.stats).map(([key, value]) => (
             <div key={key} className="flex items-center gap-1">
-              <span className={`text-sm font-semibold ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>{String(value)}</span>
-              <span className={`text-xs capitalize ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{key}</span>
+              <span className={`text-sm font-semibold ${isDark ? 'text-[#C8F904]' : 'text-blue-600'}`}>{String(value)}</span>
+              <span className={`text-xs capitalize ${isDark ? 'text-white/40' : 'text-gray-400'}`}>{key}</span>
             </div>
           ))}
         </div>
         
         {/* Tech tags */}
-        <div className="flex flex-wrap gap-1.5 mt-2">
+        <div className="flex flex-wrap gap-1.5 mt-3">
           {startup.tech.slice(0, 3).map((tech: string, idx: number) => (
             <span 
               key={idx}
-              className={`text-xs px-2 py-0.5 rounded ${isDark ? 'bg-gray-700/50 text-gray-400' : 'bg-gray-100 text-gray-500'}`}
+              className={`text-xs px-2.5 py-1 rounded-full ${isDark ? 'bg-white/5 text-white/50 border border-white/10' : 'bg-gray-100 text-gray-500'}`}
             >
               {tech}
             </span>
           ))}
           {startup.tech.length > 3 && (
-            <span className={`text-xs px-2 py-0.5 rounded ${isDark ? 'bg-gray-700/50 text-gray-500' : 'bg-gray-100 text-gray-400'}`}>
+            <span className={`text-xs px-2.5 py-1 rounded-full ${isDark ? 'bg-white/5 text-white/30 border border-white/10' : 'bg-gray-100 text-gray-400'}`}>
               +{startup.tech.length - 3}
             </span>
           )}
@@ -656,25 +797,44 @@ const PeopleAlsoAsk = () => {
   const { isDark } = useContext(ThemeContext);
 
   return (
-    <div className={`border rounded-lg overflow-hidden mb-8 ${isDark ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white shadow-sm'}`}>
-      <div className={`p-4 border-b ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
-        <h3 className={`text-lg ${isDark ? 'text-white' : 'text-gray-900'}`}>People also ask</h3>
+    <div className={`relative rounded-2xl overflow-hidden mb-8 ${isDark ? 'gradient-border' : 'border border-gray-200 bg-white shadow-sm'}`}>
+      {/* Header with glow */}
+      <div className={`relative p-5 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
+        {isDark && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-16 bg-[#6967FB] rounded-full blur-[40px] opacity-20" />}
+        <h3 className={`relative text-lg font-semibold flex items-center gap-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+          <span className={`p-2 rounded-lg ${isDark ? 'bg-[#6967FB]/20' : 'bg-blue-100'}`}>
+            <HelpCircle size={16} className={isDark ? 'text-[#6967FB]' : 'text-blue-600'} />
+          </span>
+          People also ask
+        </h3>
       </div>
+      
       {FAQ_DATA.map((item, idx) => (
-        <div key={idx} className={`border-b last:border-b-0 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+        <div key={idx} className={`border-b last:border-b-0 ${isDark ? 'border-white/5' : 'border-gray-200'}`}>
           <div 
             onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-            className={`px-4 py-3 flex justify-between items-center cursor-pointer group ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
+            className={`relative px-5 py-5 flex justify-between items-center cursor-pointer group ${isDark ? 'hover:bg-white/5' : 'hover:bg-gray-50'}`}
           >
-            <span className={`text-sm font-medium ${isDark ? 'text-gray-300 group-hover:text-white' : 'text-gray-700 group-hover:text-gray-900'}`}>{item.question}</span>
-            <ChevronDown 
-              size={18} 
-              className={`transition-transform duration-200 ${openIndex === idx ? 'rotate-180' : ''} ${isDark ? 'text-gray-400' : 'text-gray-500'}`} 
-            />
+            {/* Left glow indicator when open */}
+            {isDark && openIndex === idx && (
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-[#C8F904] rounded-r-full" />
+            )}
+            
+            <span className={`text-sm font-medium transition-colors ${openIndex === idx ? (isDark ? 'text-[#C8F904]' : 'text-blue-600') : (isDark ? 'text-white/70 group-hover:text-white' : 'text-gray-700 group-hover:text-gray-900')}`}>
+              {item.question}
+            </span>
+            <div className={`p-1.5 rounded-lg transition-all ${openIndex === idx ? (isDark ? 'bg-[#C8F904]/20' : 'bg-blue-100') : (isDark ? 'bg-white/5' : 'bg-gray-100')}`}>
+              <ChevronDown 
+                size={16} 
+                className={`transition-transform duration-300 ${openIndex === idx ? 'rotate-180' : ''} ${openIndex === idx ? (isDark ? 'text-[#C8F904]' : 'text-blue-600') : (isDark ? 'text-white/40' : 'text-gray-500')}`} 
+              />
+            </div>
           </div>
           {openIndex === idx && (
-            <div className={`px-4 pb-4 pt-1 ${isDark ? 'bg-gray-700/30' : 'bg-gray-50'}`}>
-              <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{item.answer}</p>
+            <div className={`px-5 pb-5 pt-0 ${isDark ? '' : 'bg-gray-50'}`}>
+              <div className={`p-4 rounded-xl ${isDark ? 'bg-white/5 border border-white/5' : 'bg-white border border-gray-100'}`}>
+                <p className={`text-sm leading-relaxed ${isDark ? 'text-white/60' : 'text-gray-600'}`}>{item.answer}</p>
+              </div>
             </div>
           )}
         </div>
@@ -713,13 +873,13 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-[100] bg-[#000000] flex items-center justify-center overflow-hidden cursor-default select-none">
+    <div className="fixed inset-0 z-[100] bg-[#0E1A1F] flex items-center justify-center overflow-hidden cursor-default select-none">
       
       {/* Dynamic gradient that follows mouse */}
       <div 
         className="absolute inset-0 transition-all duration-[2000ms] ease-out"
         style={{
-          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(59, 130, 246, 0.15) 0%, transparent 50%)`,
+          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(105, 103, 251, 0.2) 0%, transparent 40%)`,
         }}
       />
 
@@ -728,41 +888,81 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
         className={`absolute inset-0 transition-opacity duration-[2000ms] ${stage >= 1 ? 'opacity-100' : 'opacity-0'}`}
         style={{
           background: `
-            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.15), transparent),
-            radial-gradient(ellipse 60% 40% at 100% 100%, rgba(59, 130, 246, 0.1), transparent),
-            radial-gradient(ellipse 60% 40% at 0% 100%, rgba(139, 92, 246, 0.1), transparent)
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(105, 103, 251, 0.2), transparent),
+            radial-gradient(ellipse 60% 40% at 100% 100%, rgba(105, 103, 251, 0.15), transparent),
+            radial-gradient(ellipse 60% 40% at 0% 100%, rgba(200, 249, 4, 0.08), transparent)
           `
         }}
       />
 
-      {/* Subtle grid pattern */}
+      {/* Dot pattern background */}
       <div 
-        className={`absolute inset-0 transition-opacity duration-1000 ${stage >= 2 ? 'opacity-[0.03]' : 'opacity-0'}`}
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: '100px 100px'
-        }}
+        className={`absolute inset-0 dot-pattern transition-opacity duration-1000 ${stage >= 2 ? 'opacity-100' : 'opacity-0'}`}
       />
 
-      {/* Floating orbs */}
+      {/* Flowing SVG Lines */}
+      <svg className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${stage >= 3 ? 'opacity-100' : 'opacity-0'}`} xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lineGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(105, 103, 251, 0)" />
+            <stop offset="50%" stopColor="rgba(105, 103, 251, 0.5)" />
+            <stop offset="100%" stopColor="rgba(105, 103, 251, 0)" />
+          </linearGradient>
+          <linearGradient id="lineGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(200, 249, 4, 0)" />
+            <stop offset="50%" stopColor="rgba(200, 249, 4, 0.3)" />
+            <stop offset="100%" stopColor="rgba(200, 249, 4, 0)" />
+          </linearGradient>
+        </defs>
+        <path 
+          d="M0,200 Q200,100 400,200 T800,200 T1200,200 T1600,200" 
+          fill="none" 
+          stroke="url(#lineGradient1)" 
+          strokeWidth="1"
+          className="flow-line"
+          style={{ opacity: 0.5 }}
+        />
+        <path 
+          d="M0,400 Q300,300 600,400 T1200,400 T1800,400" 
+          fill="none" 
+          stroke="url(#lineGradient2)" 
+          strokeWidth="1"
+          className="flow-line"
+          style={{ opacity: 0.3, animationDelay: '1s' }}
+        />
+      </svg>
+
+      {/* Floating orbs with enhanced glow */}
       <div 
-        className={`absolute w-[500px] h-[500px] rounded-full transition-all duration-[3000ms] ${stage >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}
+        className={`absolute w-[600px] h-[600px] rounded-full transition-all duration-[3000ms] ${stage >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}
         style={{
-          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%)',
-          left: '10%',
-          top: '20%',
-          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, rgba(105, 103, 251, 0.15) 0%, transparent 60%)',
+          left: '5%',
+          top: '10%',
+          filter: 'blur(60px)',
           animation: stage >= 2 ? 'float 8s ease-in-out infinite' : 'none'
         }}
       />
       <div 
-        className={`absolute w-[400px] h-[400px] rounded-full transition-all duration-[3000ms] delay-300 ${stage >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}
+        className={`absolute w-[500px] h-[500px] rounded-full transition-all duration-[3000ms] delay-300 ${stage >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}
         style={{
-          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%)',
-          right: '15%',
-          bottom: '20%',
-          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, rgba(200, 249, 4, 0.08) 0%, transparent 60%)',
+          right: '10%',
+          bottom: '15%',
+          filter: 'blur(50px)',
           animation: stage >= 2 ? 'float 10s ease-in-out infinite reverse' : 'none'
+        }}
+      />
+      
+      {/* Additional accent orb */}
+      <div 
+        className={`absolute w-[300px] h-[300px] rounded-full transition-all duration-[3000ms] delay-500 ${stage >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}
+        style={{
+          background: 'radial-gradient(circle, rgba(105, 103, 251, 0.2) 0%, transparent 70%)',
+          right: '30%',
+          top: '20%',
+          filter: 'blur(40px)',
+          animation: stage >= 3 ? 'float 12s ease-in-out infinite' : 'none'
         }}
       />
 
@@ -779,7 +979,7 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
           className={`transition-all duration-1000 ${stage >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
           <span className="inline-flex items-center gap-2 text-[10px] sm:text-xs tracking-[0.4em] uppercase text-white/40 font-medium">
-            <span className={`inline-block w-2 h-2 rounded-full bg-emerald-500 ${stage >= 2 ? 'animate-pulse' : ''}`} />
+            <span className={`inline-block w-2 h-2 rounded-full ${stage >= 2 ? 'animate-pulse' : ''}`} style={{ backgroundColor: '#C8F904' }} />
             Available for opportunities
           </span>
         </div>
@@ -793,7 +993,7 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
                 className={`inline-block transition-all duration-700 ${stage >= 2 ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-[100px] blur-sm'}`}
                 style={{ 
                   transitionDelay: `${i * 60}ms`,
-                  background: 'linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #6366f1 100%)',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #6967FB 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
@@ -821,7 +1021,7 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
           {['React', 'Node.js', 'TypeScript', 'AWS'].map((tech, i) => (
             <span
               key={tech}
-              className={`px-4 py-1.5 text-xs sm:text-sm font-medium rounded-full border border-white/10 text-white/50 backdrop-blur-sm transition-all duration-500 hover:border-white/30 hover:text-white/80`}
+              className={`px-4 py-1.5 text-xs sm:text-sm font-medium rounded-full border border-white/10 text-white/50 backdrop-blur-sm transition-all duration-500 hover:border-[#6967FB]/50 hover:text-[#6967FB]`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               {tech}
@@ -835,11 +1035,11 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
         >
           {[
             { value: '6+', label: 'Years' },
-            { value: '10+', label: 'Projects' },
+            { value: '12+', label: 'Projects' },
             { value: '3', label: 'Startups' }
           ].map((stat, i) => (
             <div key={stat.label} className="text-center" style={{ transitionDelay: `${i * 150}ms` }}>
-              <div className="text-3xl sm:text-4xl font-bold text-white">{stat.value}</div>
+              <div className="text-3xl sm:text-4xl font-bold" style={{ color: '#C8F904' }}>{stat.value}</div>
               <div className="text-xs sm:text-sm text-white/40 mt-1 uppercase tracking-wider">{stat.label}</div>
             </div>
           ))}
@@ -851,7 +1051,7 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
         >
           <button
             onClick={onComplete}
-            className="group relative px-8 py-3 text-sm font-medium text-white/80 rounded-full border border-white/20 hover:border-white/40 transition-all duration-300 hover:text-white overflow-hidden"
+            className="group relative px-8 py-3 text-sm font-medium text-white/80 rounded-full border border-white/20 hover:border-[#6967FB] transition-all duration-300 hover:text-white overflow-hidden"
           >
             <span className="relative z-10 flex items-center gap-2">
               Explore Portfolio
@@ -859,7 +1059,7 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-[#6967FB]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </button>
         </div>
 
@@ -877,7 +1077,7 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
         BHOPAL, INDIA
       </div>
       <div className={`absolute bottom-8 left-8 text-[10px] text-white/20 font-mono tracking-wider transition-all duration-1000 ${stage >= 4 ? 'opacity-100' : 'opacity-0'}`}>
-        <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 animate-pulse" />
+        <span className="inline-block w-1.5 h-1.5 rounded-full mr-2 animate-pulse" style={{ backgroundColor: '#C8F904' }} />
         OPEN TO WORK
       </div>
       <div className={`absolute bottom-8 right-8 text-[10px] text-white/20 font-mono tracking-wider transition-all duration-1000 ${stage >= 4 ? 'opacity-100' : 'opacity-0'}`}>
@@ -915,7 +1115,7 @@ export default function Home() {
       {/* Welcome Intro */}
       {showIntro && <WelcomeIntro onComplete={handleIntroComplete} />}
       
-      <div className={`min-h-screen font-sans transition-all duration-700 ${isDark ? 'bg-gray-900 text-gray-200' : 'bg-gray-50 text-gray-900'} ${contentVisible ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`min-h-screen font-sans transition-all duration-700 ${isDark ? 'bg-[#0E1A1F] text-gray-200' : 'bg-gray-50 text-gray-900'} ${contentVisible ? 'opacity-100' : 'opacity-0'}`}>
         <Navbar />
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
         
@@ -928,9 +1128,9 @@ export default function Home() {
             <div id="content-section" className="flex-1 max-w-2xl">
               
               {/* "Did you mean" Context */}
-              <div className="mb-6 text-sm">
-                <span className={`italic ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Did you mean: </span>
-                <a href={`mailto:${PROFILE.email}`} className={`font-medium italic hover:underline ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
+              <div className="mb-8 text-sm">
+                <span className={`italic ${isDark ? 'text-white/40' : 'text-gray-400'}`}>Did you mean: </span>
+                <a href={`mailto:${PROFILE.email}`} className={`font-medium italic hover:underline ${isDark ? 'text-[#6967FB] hover:text-[#8583fc]' : 'text-blue-600'}`}>
                   Hire this experienced Full Stack Engineer
                 </a>
               </div>
@@ -938,7 +1138,7 @@ export default function Home() {
               {activeTab === "All" && (
                 <>
                   <div className="mb-8">
-                      <h2 className={`text-2xl font-normal mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Work Experience</h2>
+                      <h2 className={`text-2xl font-light mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>Work Experience</h2>
                       {EXPERIENCE.map((job, index) => (
                       <SearchResult 
                           key={index}
@@ -955,7 +1155,7 @@ export default function Home() {
                   <PeopleAlsoAsk />
 
                   <div>
-                      <h2 className={`text-2xl font-normal mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Key Projects</h2>
+                      <h2 className={`text-2xl font-light mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>Key Projects</h2>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {PROJECTS.slice(0,2).map((project, idx) => (
                               <ProjectCard key={idx} project={project} onClick={() => setSelectedProject(project)} />
@@ -991,11 +1191,13 @@ export default function Home() {
 
               {activeTab === "Startups" && (
                   <div className="animate-fadeIn">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Rocket className="text-blue-500" size={22} />
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="p-2.5 rounded-xl bg-[#6967FB]">
+                          <Rocket className="text-white" size={20} />
+                        </div>
                         <div>
-                          <h2 className={`text-lg font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>My Ventures</h2>
-                          <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>Products that solve real problems</p>
+                          <h2 className={`text-xl font-light ${isDark ? 'text-white' : 'text-gray-900'}`}>My Ventures</h2>
+                          <p className={`text-xs ${isDark ? 'text-white/40' : 'text-gray-500'}`}>Products that solve real problems</p>
                         </div>
                       </div>
                       <div className="space-y-3">
@@ -1008,10 +1210,19 @@ export default function Home() {
 
               {activeTab === "Skills" && (
                   <div className="animate-fadeIn">
-                      <h2 className={`text-xl mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Technical Proficiency</h2>
-                      <div className="flex flex-wrap gap-2">
-                          {SKILLS.map(skill => (
-                              <span key={skill} className={`px-4 py-2 rounded-md border transition-all cursor-default ${isDark ? 'bg-gray-800 text-gray-400 border-gray-700 hover:border-gray-600 hover:text-gray-200' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-900'}`}>
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className={`p-2.5 rounded-xl ${isDark ? 'bg-[#6967FB]/20' : 'bg-blue-100'}`}>
+                          <Sparkles size={20} className={isDark ? 'text-[#6967FB]' : 'text-blue-600'} />
+                        </div>
+                        <h2 className={`text-2xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Technical Proficiency</h2>
+                      </div>
+                      <div className="flex flex-wrap gap-3">
+                          {SKILLS.map((skill, idx) => (
+                              <span 
+                                key={skill} 
+                                className={`px-5 py-3 rounded-xl border transition-all cursor-default hover:scale-105 ${isDark ? 'bg-white/5 text-white/60 border-white/10 hover:border-[#6967FB]/50 hover:text-[#C8F904] hover:bg-[#6967FB]/10 hover:shadow-lg hover:shadow-[#6967FB]/10' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-900'}`}
+                                style={{ animationDelay: `${idx * 30}ms` }}
+                              >
                                   {skill}
                               </span>
                           ))}
@@ -1031,15 +1242,33 @@ export default function Home() {
           </div>
         </main>
 
-        <footer className={`text-sm py-4 mt-12 border-t ${isDark ? 'bg-gray-800 text-gray-500 border-gray-700' : 'bg-white text-gray-500 border-gray-200'}`}>
-          <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-               <span className={isDark ? 'text-gray-400' : 'text-gray-500'}>© 2024 Abhishek Dandriyal</span>
+        <footer className={`relative text-sm py-10 mt-16 border-t overflow-hidden ${isDark ? 'bg-[#0E1A1F] text-white/40 border-white/10' : 'bg-white text-gray-500 border-gray-200'}`}>
+          {/* Background effects */}
+          {isDark && (
+            <>
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#6967FB]/30 to-transparent" />
+              <div className="absolute bottom-0 left-1/4 w-64 h-32 bg-[#6967FB] rounded-full blur-[100px] opacity-10" />
+              <div className="absolute bottom-0 right-1/4 w-48 h-24 bg-[#C8F904] rounded-full blur-[80px] opacity-5" />
+            </>
+          )}
+          
+          <div className="relative max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div className="flex items-center gap-3">
+              <span className={`text-xl font-bold ${isDark ? '' : ''}`}>
+                <span className={isDark ? 'neon-text' : ''} style={{ background: 'linear-gradient(135deg, #ffffff 0%, #6967FB 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>AD</span>
+                <span className={isDark ? 'neon-text-accent' : ''} style={{ color: '#C8F904' }}>.</span>
+              </span>
+              <span className={`text-sm ${isDark ? 'text-white/40' : 'text-gray-500'}`}>© 2024 Abhishek Dandriyal</span>
             </div>
-            <div className="flex gap-6">
-              <a href={`mailto:${PROFILE.email}`} className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>Contact</a>
-              <a href={PROFILE.socials[0]?.link || "#"} target="_blank" rel="noopener noreferrer" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>GitHub</a>
-              <a href={PROFILE.socials[1]?.link || "#"} target="_blank" rel="noopener noreferrer" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>LinkedIn</a>
+            
+            <div className="flex gap-4">
+              <a href={`mailto:${PROFILE.email}`} className={`px-4 py-2 rounded-xl transition-all ${isDark ? 'text-white/50 hover:text-[#C8F904] hover:bg-white/5' : 'hover:text-gray-900 hover:bg-gray-100'}`}>Contact</a>
+              <a href={PROFILE.socials[0]?.link || "#"} target="_blank" rel="noopener noreferrer" className={`px-4 py-2 rounded-xl transition-all flex items-center gap-2 ${isDark ? 'text-white/50 hover:text-[#C8F904] hover:bg-white/5' : 'hover:text-gray-900 hover:bg-gray-100'}`}>
+                <Github size={16} /> GitHub
+              </a>
+              <a href={PROFILE.socials[1]?.link || "#"} target="_blank" rel="noopener noreferrer" className={`px-4 py-2 rounded-xl transition-all flex items-center gap-2 ${isDark ? 'text-white/50 hover:text-[#C8F904] hover:bg-white/5' : 'hover:text-gray-900 hover:bg-gray-100'}`}>
+                <Linkedin size={16} /> LinkedIn
+              </a>
             </div>
           </div>
         </footer>
