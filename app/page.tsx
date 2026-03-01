@@ -27,7 +27,17 @@ import {
   Moon,
   ArrowUp,
   HelpCircle,
-  Sparkles
+  Sparkles,
+  Quote,
+  Heart,
+  Star,
+  Zap,
+  Clock,
+  Eye,
+  BookOpen,
+  TrendingUp,
+  Cloud,
+  Brain
 } from 'lucide-react';
 
 // Theme Context
@@ -94,11 +104,19 @@ const EXPERIENCE = [
 
 const PROJECTS = [
   {
+    title: "InsightBoard - Dependency Engine",
+    role: "Full Stack Developer",
+    image: "bg-emerald-100",
+    description: "Built a dependency engine that converts meeting transcripts into validated dependency graphs with cycle detection, idempotent processing, and interactive task unlocking. Features async backend extraction and React Flow-based visualization for real-time graph interaction.",
+    link: "https://insight-board-ai-web.vercel.app/",
+    tech: "React.js, React Flow, Node.js, TypeScript, Vercel"
+  },
+  {
     title: "Broadengage",
     role: "Tech Lead",
     image: "bg-indigo-100",
     description: "Leading team and architecting enterprise-grade Micro-Frontend system with Module Federation. Implemented AWS CodeArtifact-based versioning for shared packages, built a reusable common component library, and developed a project management application similar to Jira for task tracking and team collaboration.",
-    link: "https://demo.broadengage.com/",
+    link: "confidential",
     tech: "React.js, Micro-Frontend, AWS CodeArtifact, Module Federation, Node.js, MySQL"
   },
   {
@@ -106,7 +124,7 @@ const PROJECTS = [
     role: "Tech Lead",
     image: "bg-cyan-100",
     description: "Built an innovative project management platform 'From Idea to Innovation' - a comprehensive tool for managing projects, tasks, sprints, and team collaboration. Features include Kanban boards, sprint planning, backlog management, and real-time team collaboration similar to Jira.",
-    link: "https://rai.broadengage.com/",
+    link: "confidential",
     tech: "React.js, Node.js, MySQL, AWS, Micro-Frontend, Module Federation"
   },
   {
@@ -114,7 +132,7 @@ const PROJECTS = [
     role: "Tech Lead",
     image: "bg-teal-100",
     description: "Led development of a comprehensive recruitment and hiring management platform. Streamlined the entire hiring process from job posting to candidate onboarding with features like applicant tracking, interview scheduling, candidate pipeline management, and hiring analytics.",
-    link: "http://hireloop.iifetech.com/",
+    link: "confidential",
     tech: "React.js, Node.js, MySQL, AWS, REST APIs"
   },
   {
@@ -122,7 +140,7 @@ const PROJECTS = [
     role: "Tech Lead",
     image: "bg-pink-100",
     description: "Built a comprehensive assessment platform for creating, managing, and tracking student assessments. Features include easy assignment creation with customizable settings, student management, detailed analytics & reports, secure authentication, and time-based submission tracking.",
-    link: "https://assessment.iifetech.com/",
+    link: "confidential",
     tech: "React.js, Node.js, MySQL, AWS, REST APIs"
   },
   {
@@ -138,7 +156,7 @@ const PROJECTS = [
     role: "Full Stack Developer",
     image: "bg-blue-100",
     description: "Developed a complete lead management system with custom scoring, advanced tracking (UTM, direct visitors, drop-offs), and real-time dashboards using Next.js and MySQL. Built scalable serverless APIs and deployed on Vercel.",
-    link: "https://reports.broadengage.com/",
+    link: "confidential",
     tech: "Next.js, MySQL, Vercel"
   },
   {
@@ -217,6 +235,492 @@ const STARTUPS = [
     color: "bg-emerald-500",
     stats: { products: "100+", orders: "500+", savings: "60%" },
     tech: ["Shopify", "E-commerce", "Payment Gateway"]
+  }
+];
+
+const TESTIMONIALS = [
+  {
+    name: "Emie",
+    role: "Frontend Developer",
+    relationship: "Worked together",
+    avatar: "E",
+    color: "from-pink-500 to-rose-500",
+    message: "Abhishek is one of the most talented developers I've worked with. His ability to break down complex problems and guide the team through challenging sprints is remarkable. He's not just a great coder, but an amazing mentor who always takes time to explain concepts clearly.",
+    rating: 5
+  },
+  {
+    name: "Joy",
+    role: "Junior Developer",
+    relationship: "Mentored by Abhishek",
+    avatar: "J",
+    color: "from-blue-500 to-cyan-500",
+    message: "Working under Abhishek's guidance transformed my career. He taught me best practices in React and Node.js, always patient with my questions. His code reviews were learning sessions in themselves. Grateful to have him as my mentor!",
+    rating: 5
+  },
+  {
+    name: "Rahul",
+    role: "Backend Developer",
+    relationship: "Team member",
+    avatar: "R",
+    color: "from-purple-500 to-indigo-500",
+    message: "Abhishek's expertise in micro-frontend architecture is exceptional. He architected our entire module federation system and made it look effortless. His technical decisions have saved us countless hours. A true 10x engineer!",
+    rating: 5
+  },
+  {
+    name: "Priya",
+    role: "QA Engineer",
+    relationship: "Collaborated on projects",
+    avatar: "P",
+    color: "from-emerald-500 to-teal-500",
+    message: "What sets Abhishek apart is his attention to detail and commitment to quality. His code is clean, well-documented, and rarely has bugs. He's always open to feedback and makes the QA process smooth. A pleasure to work with!",
+    rating: 5
+  }
+];
+
+const BLOG_POSTS = [
+  {
+    id: 1,
+    title: "Why I Mass Migrated to AWS Lambda and Never Looked Back",
+    excerpt: "After managing 12 EC2 instances for 2 years, I made the switch to serverless. Here's the real cost breakdown, the gotchas nobody talks about, and why my 3 AM alerts dropped by 90%.",
+    category: "AWS",
+    icon: Cloud,
+    color: "from-orange-500 to-amber-500",
+    readTime: "8 min read",
+    views: "2.4K",
+    date: "Feb 2026",
+    tags: ["Lambda", "EC2", "Cost Optimization", "Serverless"],
+    content: `## The Breaking Point
+
+It was 3 AM when my phone buzzed for the fifth time that week. Another EC2 instance had maxed out its memory. I was managing 12 instances across three environments, and the cognitive load was crushing.
+
+### The Numbers That Changed My Mind
+
+| Metric | EC2 Setup | Lambda Setup |
+|--------|-----------|--------------|
+| Monthly Cost | $2,400 | $340 |
+| 3 AM Alerts | 12/month | 1/month |
+| Deploy Time | 45 mins | 3 mins |
+| Scaling | Manual | Automatic |
+
+### The Migration Strategy
+
+**Phase 1: Identify Stateless Services**
+Started with API endpoints that didn't need persistent connections. Payment webhooks were perfect candidates.
+
+**Phase 2: Cold Start Optimization**
+\`\`\`javascript
+// Connections outside handler = reused across invocations
+const db = new MySQL2Pool(config);
+
+export const handler = async (event) => {
+  // Handler code here
+};
+\`\`\`
+
+**Phase 3: The Hybrid Approach**
+Not everything belongs in Lambda. Our WebSocket server stayed on EC2, but everything else moved.
+
+### What Nobody Tells You
+
+1. **Cold starts are real** - but Provisioned Concurrency exists
+2. **15-minute timeout** - break long tasks into Step Functions
+3. **VPC cold starts** - use VPC endpoints wisely
+
+### The Result
+
+Six months later, I sleep through the night. Our infrastructure scales automatically during product launches, and I spend time building features instead of babysitting servers.
+
+**The lesson?** Don't migrate everything blindly. Migrate strategically.`
+  },
+  {
+    id: 2,
+    title: "React Server Components Changed How I Think About Architecture",
+    excerpt: "I was skeptical about RSC until I rebuilt our dashboard. 40% smaller bundle, instant page loads, and my junior devs finally stopped asking 'where does this data come from?'",
+    category: "React",
+    icon: Code,
+    color: "from-cyan-500 to-blue-500",
+    readTime: "10 min read",
+    views: "3.8K",
+    date: "Jan 2026",
+    tags: ["React 19", "Server Components", "Next.js 15", "Performance"],
+    content: `## The Aha Moment
+
+I've been writing React since 2018. I thought I knew React. Then Server Components came along and made me question everything.
+
+### The Old Way vs The New Way
+
+**Before (Client Components everywhere):**
+\`\`\`jsx
+'use client';
+import { useEffect, useState } from 'react';
+
+export function Dashboard() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    fetch('/api/dashboard')
+      .then(res => res.json())
+      .then(setData)
+      .finally(() => setLoading(false));
+  }, []);
+  
+  if (loading) return <Skeleton />;
+  return <DashboardUI data={data} />;
+}
+\`\`\`
+
+**After (Server Components):**
+\`\`\`jsx
+// No 'use client' = Server Component
+async function Dashboard() {
+  const data = await getDashboardData();
+  return <DashboardUI data={data} />;
+}
+\`\`\`
+
+### The Mental Model Shift
+
+Think of it like this:
+- **Server Components** = Your kitchen (where you prep)
+- **Client Components** = The dining table (where interaction happens)
+
+You don't need interactivity to display a list. You need it for the "Add to Cart" button.
+
+### Real Performance Gains
+
+Our e-commerce dashboard rebuild results:
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Bundle Size | 420KB | 180KB | -57% |
+| LCP | 2.8s | 0.9s | -68% |
+| TTI | 3.2s | 1.1s | -66% |
+
+### The Pattern I Use Everywhere
+
+\`\`\`jsx
+// Server Component (fetches data)
+async function ProductPage({ id }) {
+  const product = await getProduct(id);
+  return (
+    <div>
+      <ProductDetails product={product} />
+      <AddToCartButton productId={id} /> {/* Client Component */}
+    </div>
+  );
+}
+\`\`\`
+
+### When NOT to Use Server Components
+
+- Real-time features (use WebSockets)
+- Heavy animations (need client-side JS)
+- Browser APIs (localStorage, geolocation)
+
+**The future of React is hybrid. Embrace it.**`
+  },
+  {
+    id: 3,
+    title: "MySQL Query That Took 47 Seconds Now Takes 50ms",
+    excerpt: "A single missing index brought our production database to its knees. Here's the detective work, the fix, and the monitoring setup that ensures it never happens again.",
+    category: "MySQL",
+    icon: Database,
+    color: "from-blue-600 to-indigo-600",
+    readTime: "7 min read",
+    views: "1.9K",
+    date: "Dec 2025",
+    tags: ["MySQL", "Performance", "Indexing", "Query Optimization"],
+    content: `## The Incident
+
+Friday, 5:47 PM. Slack explodes. "Dashboard is down." "API timeouts everywhere." Our MySQL CPU was at 100%.
+
+### Finding the Culprit
+
+\`\`\`sql
+-- The slow query log revealed this monster
+SELECT o.*, u.name, u.email 
+FROM orders o 
+JOIN users u ON o.user_id = u.id 
+WHERE o.status = 'pending' 
+AND o.created_at > DATE_SUB(NOW(), INTERVAL 30 DAY)
+ORDER BY o.created_at DESC;
+\`\`\`
+
+**EXPLAIN showed the horror:**
+\`\`\`
+type: ALL (full table scan on 2.3M rows)
+rows: 2,341,567
+Extra: Using filesort
+\`\`\`
+
+### The Fix (Deceptively Simple)
+
+\`\`\`sql
+-- Composite index for the win
+CREATE INDEX idx_orders_status_created 
+ON orders(status, created_at DESC);
+
+-- After adding the index
+type: range
+rows: 1,247
+Extra: Using index condition
+\`\`\`
+
+### Why This Index Works
+
+The query filters by \`status\` first, then sorts by \`created_at\`. A composite index in that exact order lets MySQL:
+
+1. Jump directly to 'pending' orders
+2. Read them already sorted
+3. No filesort needed
+
+### The Monitoring Setup
+
+\`\`\`sql
+-- Query to find missing indexes
+SELECT 
+  t.TABLE_NAME,
+  t.TABLE_ROWS,
+  ROUND(t.DATA_LENGTH/1024/1024, 2) as 'Data MB',
+  ROUND(t.INDEX_LENGTH/1024/1024, 2) as 'Index MB'
+FROM information_schema.TABLES t
+WHERE t.TABLE_SCHEMA = 'production'
+AND t.TABLE_ROWS > 100000
+ORDER BY t.TABLE_ROWS DESC;
+\`\`\`
+
+### Prevention Checklist
+
+- [ ] Enable slow query log (threshold: 1 second)
+- [ ] Weekly EXPLAIN on top 10 queries
+- [ ] Index columns used in WHERE, JOIN, ORDER BY
+- [ ] Monitor query patterns after new features
+
+**47 seconds → 50 milliseconds. That's a 940x improvement from one index.**`
+  },
+  {
+    id: 4,
+    title: "Building AI Features Without Burning Your API Budget",
+    excerpt: "We added AI-powered search to our app. First month's OpenAI bill: $3,200. After optimization: $180. Here's every trick I learned about caching, batching, and choosing the right model.",
+    category: "AI",
+    icon: Brain,
+    color: "from-purple-500 to-pink-500",
+    readTime: "12 min read",
+    views: "5.1K",
+    date: "Feb 2026",
+    tags: ["OpenAI", "LangChain", "Cost Optimization", "Embeddings"],
+    content: `## The $3,200 Wake-Up Call
+
+We launched AI-powered semantic search. Users loved it. Our finance team did not.
+
+### Where The Money Went
+
+| Operation | Cost/1K tokens | Our Usage | Monthly Cost |
+|-----------|---------------|-----------|--------------|
+| GPT-4 | $0.03 | 89M tokens | $2,670 |
+| Embeddings | $0.0001 | 340M tokens | $34 |
+| GPT-3.5 | $0.002 | 248M tokens | $496 |
+
+### The Optimization Playbook
+
+**1. Cache Everything**
+\`\`\`javascript
+const cache = new Redis();
+
+async function getEmbedding(text) {
+  const cacheKey = \`emb:\${hash(text)}\`;
+  const cached = await cache.get(cacheKey);
+  
+  if (cached) return JSON.parse(cached);
+  
+  const embedding = await openai.embeddings.create({
+    input: text,
+    model: 'text-embedding-3-small'
+  });
+  
+  await cache.set(cacheKey, JSON.stringify(embedding), 'EX', 86400);
+  return embedding;
+}
+\`\`\`
+
+**2. Right-Size Your Models**
+- GPT-4 for complex reasoning → GPT-3.5 for simple tasks
+- text-embedding-ada-002 → text-embedding-3-small (6x cheaper, same quality)
+
+**3. Batch Your Requests**
+\`\`\`javascript
+// Instead of 100 separate API calls
+const embeddings = await openai.embeddings.create({
+  input: arrayOf100Texts, // Batch them!
+  model: 'text-embedding-3-small'
+});
+\`\`\`
+
+**4. Implement Semantic Caching**
+\`\`\`javascript
+// If user asks similar question, return cached answer
+const similarity = cosineSimilarity(newQuery, cachedQuery);
+if (similarity > 0.95) return cachedAnswer;
+\`\`\`
+
+### The Architecture That Saved Us
+
+\`\`\`
+User Query
+    ↓
+[Semantic Cache Check] → Cache Hit → Return
+    ↓ Cache Miss
+[Embedding Generation]
+    ↓
+[Vector Search in Pinecone]
+    ↓
+[Context Retrieved]
+    ↓
+[GPT-3.5 for Simple] or [GPT-4 for Complex]
+    ↓
+[Cache Response]
+    ↓
+Return to User
+\`\`\`
+
+### Results After 30 Days
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Monthly Cost | $3,200 | $180 |
+| Avg Response Time | 2.1s | 0.4s |
+| Cache Hit Rate | 0% | 73% |
+
+**The lesson: AI features don't have to be expensive. They have to be smart.**`
+  },
+  {
+    id: 5,
+    title: "Next.js 15 App Router: Patterns That Actually Scale",
+    excerpt: "After shipping 3 production apps with App Router, here are the patterns that survived real-world traffic, SEO requirements, and the dreaded 'it works on localhost' syndrome.",
+    category: "Next.js",
+    icon: Layers,
+    color: "from-gray-700 to-gray-900",
+    readTime: "9 min read",
+    views: "4.2K",
+    date: "Jan 2026",
+    tags: ["Next.js 15", "App Router", "Production", "Patterns"],
+    content: `## Beyond the Tutorial
+
+Tutorials show you the happy path. Production shows you everything else.
+
+### Pattern 1: The Data Fetching Hierarchy
+
+\`\`\`
+app/
+├── layout.tsx      → User session (cached)
+├── dashboard/
+│   ├── layout.tsx  → Dashboard nav (cached)
+│   └── page.tsx    → Dashboard data (dynamic)
+\`\`\`
+
+\`\`\`jsx
+// app/layout.tsx - Fetched ONCE, shared everywhere
+export default async function RootLayout({ children }) {
+  const session = await getSession(); // Deduplicated automatically
+  return (
+    <html>
+      <body>
+        <SessionProvider value={session}>
+          {children}
+        </SessionProvider>
+      </body>
+    </html>
+  );
+}
+\`\`\`
+
+### Pattern 2: Parallel Data Fetching
+
+\`\`\`jsx
+// ❌ Sequential (slow)
+const user = await getUser();
+const posts = await getPosts();
+const analytics = await getAnalytics();
+
+// ✅ Parallel (fast)
+const [user, posts, analytics] = await Promise.all([
+  getUser(),
+  getPosts(),
+  getAnalytics()
+]);
+\`\`\`
+
+### Pattern 3: Streaming for Perceived Performance
+
+\`\`\`jsx
+import { Suspense } from 'react';
+
+export default function Dashboard() {
+  return (
+    <div>
+      <Header /> {/* Instant */}
+      
+      <Suspense fallback={<ChartSkeleton />}>
+        <SlowChart /> {/* Streams in */}
+      </Suspense>
+      
+      <Suspense fallback={<TableSkeleton />}>
+        <SlowTable /> {/* Streams in */}
+      </Suspense>
+    </div>
+  );
+}
+\`\`\`
+
+### Pattern 4: Route Handlers for APIs
+
+\`\`\`typescript
+// app/api/webhook/route.ts
+export async function POST(request: Request) {
+  const body = await request.json();
+  
+  // Validate webhook signature
+  if (!isValidSignature(body, request.headers)) {
+    return Response.json({ error: 'Invalid' }, { status: 401 });
+  }
+  
+  // Process in background
+  await processWebhook(body);
+  
+  return Response.json({ received: true });
+}
+\`\`\`
+
+### Pattern 5: Error Boundaries That Help
+
+\`\`\`jsx
+// app/dashboard/error.tsx
+'use client';
+
+export default function Error({ error, reset }) {
+  useEffect(() => {
+    // Log to error tracking service
+    captureException(error);
+  }, [error]);
+
+  return (
+    <div className="error-container">
+      <h2>Something went wrong</h2>
+      <button onClick={reset}>Try again</button>
+    </div>
+  );
+}
+\`\`\`
+
+### The Gotchas
+
+1. **Don't over-cache** - Use \`revalidate\` wisely
+2. **Watch bundle size** - Check with \`@next/bundle-analyzer\`
+3. **Test without JS** - Server Components should work
+4. **Monitor Core Web Vitals** - Vercel Analytics is free
+
+**Build for users, not for demos.**`
   }
 ];
 
@@ -321,7 +825,7 @@ const Navbar = () => {
 
 const Tabs = ({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (tab: string) => void }) => {
   const { isDark } = useContext(ThemeContext);
-  const tabs = ["All", "Experience", "Projects", "Startups", "Skills"];
+  const tabs = ["All", "Experience", "Projects", "Startups", "Skills", "Reviews", "Insights"];
   
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -769,6 +1273,215 @@ const StartupCard = ({ startup }: { startup: typeof STARTUPS[0] }) => {
   );
 };
 
+// Blog Card Component
+const BlogCard = ({ post, onClick }: { post: typeof BLOG_POSTS[0]; onClick: () => void }) => {
+  const { isDark } = useContext(ThemeContext);
+  const IconComponent = post.icon;
+  
+  return (
+    <div 
+      onClick={onClick}
+      className={`group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] ${isDark ? 'bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 hover:border-white/20' : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-xl'}`}
+    >
+      {/* Category Badge */}
+      <div className={`absolute top-4 right-4 z-10 px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${post.color} text-white shadow-lg`}>
+        {post.category}
+      </div>
+      
+      {/* Header with gradient */}
+      <div className={`relative h-32 bg-gradient-to-br ${post.color} p-5 flex items-end`}>
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute top-4 left-4 p-2.5 rounded-xl bg-white/20 backdrop-blur-sm">
+          <IconComponent size={20} className="text-white" />
+        </div>
+        <div className="relative">
+          <div className="flex items-center gap-3 text-white/80 text-xs mb-1">
+            <span className="flex items-center gap-1">
+              <Clock size={12} />
+              {post.readTime}
+            </span>
+            <span className="flex items-center gap-1">
+              <Eye size={12} />
+              {post.views} views
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      {/* Content */}
+      <div className="p-5">
+        <h3 className={`font-semibold text-base mb-2 line-clamp-2 group-hover:text-[#6967FB] transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>
+          {post.title}
+        </h3>
+        <p className={`text-sm line-clamp-2 mb-4 ${isDark ? 'text-white/50' : 'text-gray-500'}`}>
+          {post.excerpt}
+        </p>
+        
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {post.tags.slice(0, 3).map((tag, idx) => (
+            <span 
+              key={idx}
+              className={`text-xs px-2 py-1 rounded-md ${isDark ? 'bg-white/5 text-white/40' : 'bg-gray-100 text-gray-500'}`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        
+        {/* Footer */}
+        <div className={`flex items-center justify-between pt-4 border-t ${isDark ? 'border-white/10' : 'border-gray-100'}`}>
+          <span className={`text-xs ${isDark ? 'text-white/30' : 'text-gray-400'}`}>{post.date}</span>
+          <span className={`text-xs font-medium flex items-center gap-1 ${isDark ? 'text-[#C8F904]' : 'text-blue-600'}`}>
+            Read article <ExternalLink size={12} />
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Blog Modal Component
+const BlogModal = ({ post, onClose }: { post: typeof BLOG_POSTS[0] | null; onClose: () => void }) => {
+  const { isDark } = useContext(ThemeContext);
+  
+  if (!post) return null;
+  
+  const IconComponent = post.icon;
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-start justify-center p-4 sm:p-8 overflow-y-auto"
+      onClick={onClose}
+    >
+      <div className={`fixed inset-0 ${isDark ? 'bg-black/80' : 'bg-black/50'} backdrop-blur-sm`} />
+      
+      <div 
+        className={`relative w-full max-w-3xl my-8 rounded-2xl overflow-hidden ${isDark ? 'bg-[#0E1A1F] border border-white/10' : 'bg-white'} shadow-2xl`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className={`relative h-48 bg-gradient-to-br ${post.color} p-6 flex flex-col justify-end`}>
+          <div className="absolute inset-0 bg-black/30" />
+          <button 
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+          >
+            <X size={20} className="text-white" />
+          </button>
+          
+          <div className="absolute top-4 left-4 p-3 rounded-xl bg-white/20 backdrop-blur-sm">
+            <IconComponent size={24} className="text-white" />
+          </div>
+          
+          <div className="relative">
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white mb-3">
+              {post.category}
+            </span>
+            <h2 className="text-2xl font-bold text-white mb-2">{post.title}</h2>
+            <div className="flex items-center gap-4 text-white/80 text-sm">
+              <span className="flex items-center gap-1">
+                <Clock size={14} />
+                {post.readTime}
+              </span>
+              <span className="flex items-center gap-1">
+                <Eye size={14} />
+                {post.views} views
+              </span>
+              <span>{post.date}</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Tags */}
+        <div className={`px-6 py-4 border-b ${isDark ? 'border-white/10' : 'border-gray-100'}`}>
+          <div className="flex flex-wrap gap-2">
+            {post.tags.map((tag, idx) => (
+              <span 
+                key={idx}
+                className={`text-xs px-3 py-1.5 rounded-full ${isDark ? 'bg-white/10 text-white/60' : 'bg-gray-100 text-gray-600'}`}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        {/* Content */}
+        <div className={`p-6 prose prose-sm max-w-none ${isDark ? 'prose-invert' : ''}`}>
+          <div className={`text-sm leading-relaxed space-y-4 ${isDark ? 'text-white/70' : 'text-gray-600'}`}>
+            {post.content.split('\n\n').map((paragraph, idx) => {
+              if (paragraph.startsWith('## ')) {
+                return <h2 key={idx} className={`text-xl font-bold mt-6 mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>{paragraph.replace('## ', '')}</h2>;
+              }
+              if (paragraph.startsWith('### ')) {
+                return <h3 key={idx} className={`text-lg font-semibold mt-5 mb-2 ${isDark ? 'text-white/90' : 'text-gray-800'}`}>{paragraph.replace('### ', '')}</h3>;
+              }
+              if (paragraph.startsWith('```')) {
+                const code = paragraph.replace(/```\w*\n?/g, '');
+                return (
+                  <pre key={idx} className={`p-4 rounded-xl overflow-x-auto text-xs ${isDark ? 'bg-black/40 text-green-400' : 'bg-gray-900 text-green-400'}`}>
+                    <code>{code}</code>
+                  </pre>
+                );
+              }
+              if (paragraph.startsWith('|')) {
+                const rows = paragraph.split('\n').filter(row => row.trim() && !row.includes('---'));
+                return (
+                  <div key={idx} className="overflow-x-auto my-4">
+                    <table className={`w-full text-xs ${isDark ? 'text-white/70' : 'text-gray-600'}`}>
+                      <tbody>
+                        {rows.map((row, rowIdx) => (
+                          <tr key={rowIdx} className={rowIdx === 0 ? 'font-semibold' : ''}>
+                            {row.split('|').filter(cell => cell.trim()).map((cell, cellIdx) => (
+                              <td key={cellIdx} className={`px-3 py-2 border ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
+                                {cell.trim()}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                );
+              }
+              if (paragraph.startsWith('- ') || paragraph.startsWith('1. ')) {
+                const items = paragraph.split('\n');
+                return (
+                  <ul key={idx} className="list-disc list-inside space-y-1 my-3">
+                    {items.map((item, itemIdx) => (
+                      <li key={itemIdx}>{item.replace(/^[-\d.]\s*/, '').replace(/\*\*/g, '')}</li>
+                    ))}
+                  </ul>
+                );
+              }
+              if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+                return <p key={idx} className={`font-semibold ${isDark ? 'text-[#C8F904]' : 'text-blue-600'}`}>{paragraph.replace(/\*\*/g, '')}</p>;
+              }
+              return <p key={idx}>{paragraph}</p>;
+            })}
+          </div>
+        </div>
+        
+        {/* Footer */}
+        <div className={`px-6 py-4 border-t ${isDark ? 'border-white/10 bg-white/5' : 'border-gray-100 bg-gray-50'}`}>
+          <div className="flex items-center justify-between">
+            <span className={`text-xs ${isDark ? 'text-white/40' : 'text-gray-400'}`}>
+              Written by Abhishek Dandriyal
+            </span>
+            <button 
+              onClick={onClose}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isDark ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const FAQ_DATA = [
   {
     question: "What is Abhishek's tech stack?",
@@ -839,6 +1552,134 @@ const PeopleAlsoAsk = () => {
           )}
         </div>
       ))}
+    </div>
+  );
+};
+
+// Testimonials Section Component
+const TestimonialsSection = () => {
+  const { isDark } = useContext(ThemeContext);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  return (
+    <div className={`relative rounded-2xl overflow-hidden mb-8 ${isDark ? 'gradient-border' : 'border border-gray-200 bg-white shadow-sm'}`}>
+      {/* Header */}
+      <div className={`relative p-5 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
+        {isDark && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-16 bg-[#C8F904] rounded-full blur-[40px] opacity-20" />}
+        <h3 className={`relative text-lg font-semibold flex items-center gap-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+          <span className={`p-2 rounded-lg ${isDark ? 'bg-[#C8F904]/20' : 'bg-yellow-100'}`}>
+            <Heart size={16} className={isDark ? 'text-[#C8F904]' : 'text-yellow-600'} fill="currentColor" />
+          </span>
+          What People Say
+          <span className={`ml-auto text-xs px-2 py-1 rounded-full ${isDark ? 'bg-white/10 text-white/50' : 'bg-gray-100 text-gray-500'}`}>
+            {TESTIMONIALS.length} Reviews
+          </span>
+        </h3>
+      </div>
+
+      {/* Featured Testimonial */}
+      <div 
+        className="p-6"
+        onMouseEnter={() => setIsAutoPlaying(false)}
+        onMouseLeave={() => setIsAutoPlaying(true)}
+      >
+        <div className={`relative p-6 rounded-2xl transition-all duration-500 ${isDark ? 'bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10' : 'bg-gradient-to-br from-gray-50 to-white border border-gray-100'}`}>
+          {/* Quote Icon */}
+          <div className={`absolute -top-3 -left-2 p-2 rounded-xl ${isDark ? 'bg-[#6967FB]' : 'bg-blue-500'}`}>
+            <Quote size={16} className="text-white" />
+          </div>
+          
+          {/* Stars */}
+          <div className="flex gap-1 mb-4 ml-6">
+            {[...Array(5)].map((_, i) => (
+              <Star 
+                key={i} 
+                size={14} 
+                className={i < TESTIMONIALS[activeIndex].rating ? 'text-yellow-400' : (isDark ? 'text-white/20' : 'text-gray-300')}
+                fill={i < TESTIMONIALS[activeIndex].rating ? 'currentColor' : 'none'}
+              />
+            ))}
+          </div>
+
+          {/* Message */}
+          <p className={`text-sm leading-relaxed mb-6 ${isDark ? 'text-white/70' : 'text-gray-600'}`}>
+            &ldquo;{TESTIMONIALS[activeIndex].message}&rdquo;
+          </p>
+
+          {/* Author */}
+          <div className="flex items-center gap-4">
+            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${TESTIMONIALS[activeIndex].color} flex items-center justify-center text-white font-bold text-sm shadow-lg`}>
+              {TESTIMONIALS[activeIndex].avatar}
+            </div>
+            <div className="flex-1">
+              <h4 className={`font-semibold text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                {TESTIMONIALS[activeIndex].name}
+              </h4>
+              <p className={`text-xs ${isDark ? 'text-white/50' : 'text-gray-500'}`}>
+                {TESTIMONIALS[activeIndex].role}
+              </p>
+              <p className={`text-xs mt-0.5 ${isDark ? 'text-[#C8F904]/70' : 'text-blue-500'}`}>
+                {TESTIMONIALS[activeIndex].relationship}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Navigation Dots */}
+        <div className="flex justify-center gap-2 mt-5">
+          {TESTIMONIALS.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                setActiveIndex(idx);
+                setIsAutoPlaying(false);
+              }}
+              className={`transition-all duration-300 rounded-full ${
+                idx === activeIndex 
+                  ? `w-8 h-2 ${isDark ? 'bg-[#C8F904]' : 'bg-blue-500'}` 
+                  : `w-2 h-2 ${isDark ? 'bg-white/20 hover:bg-white/40' : 'bg-gray-300 hover:bg-gray-400'}`
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* All Reviewers Preview */}
+        <div className={`mt-6 pt-5 border-t ${isDark ? 'border-white/10' : 'border-gray-100'}`}>
+          <div className="flex items-center justify-between">
+            <div className="flex -space-x-3">
+              {TESTIMONIALS.map((t, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setActiveIndex(idx);
+                    setIsAutoPlaying(false);
+                  }}
+                  className={`w-10 h-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white text-xs font-bold border-2 transition-all hover:scale-110 hover:z-10 ${
+                    idx === activeIndex 
+                      ? (isDark ? 'border-[#C8F904] ring-2 ring-[#C8F904]/30' : 'border-blue-500 ring-2 ring-blue-200') 
+                      : (isDark ? 'border-[#0E1A1F]' : 'border-white')
+                  }`}
+                  title={t.name}
+                >
+                  {t.avatar}
+                </button>
+              ))}
+            </div>
+            <span className={`text-xs ${isDark ? 'text-white/40' : 'text-gray-400'}`}>
+              Click to view
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -1099,6 +1940,7 @@ const WelcomeIntro = ({ onComplete }: { onComplete: () => void }) => {
 export default function Home() {
   const [activeTab, setActiveTab] = useState("All");
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null);
+  const [selectedBlogPost, setSelectedBlogPost] = useState<typeof BLOG_POSTS[0] | null>(null);
   const [isDark, setIsDark] = useState(true);
   const [showIntro, setShowIntro] = useState(true);
   const [contentVisible, setContentVisible] = useState(false);
@@ -1121,6 +1963,7 @@ export default function Home() {
         
         <ScrollToTop />
         <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+        <BlogModal post={selectedBlogPost} onClose={() => setSelectedBlogPost(null)} />
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
           <div className="flex flex-col-reverse lg:flex-row lg:justify-start gap-[8rem]">
@@ -1153,6 +1996,8 @@ export default function Home() {
                   </div>
 
                   <PeopleAlsoAsk />
+
+                  <TestimonialsSection />
 
                   <div>
                       <h2 className={`text-2xl font-light mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>Key Projects</h2>
@@ -1225,6 +2070,139 @@ export default function Home() {
                               >
                                   {skill}
                               </span>
+                          ))}
+                      </div>
+                  </div>
+              )}
+
+              {activeTab === "Reviews" && (
+                  <div className="animate-fadeIn">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className={`p-2.5 rounded-xl ${isDark ? 'bg-[#C8F904]/20' : 'bg-yellow-100'}`}>
+                          <Heart size={20} className={isDark ? 'text-[#C8F904]' : 'text-yellow-600'} fill="currentColor" />
+                        </div>
+                        <div>
+                          <h2 className={`text-xl font-light ${isDark ? 'text-white' : 'text-gray-900'}`}>What People Say</h2>
+                          <p className={`text-xs ${isDark ? 'text-white/40' : 'text-gray-500'}`}>Reviews from colleagues & connections</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {TESTIMONIALS.map((testimonial, idx) => (
+                              <div 
+                                key={idx}
+                                className={`relative p-5 rounded-2xl transition-all duration-300 hover:scale-[1.02] ${isDark ? 'bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 hover:border-white/20' : 'bg-gradient-to-br from-gray-50 to-white border border-gray-100 hover:border-gray-200 hover:shadow-lg'}`}
+                              >
+                                {/* Quote Icon */}
+                                <div className={`absolute -top-2 -left-1 p-1.5 rounded-lg ${isDark ? 'bg-[#6967FB]' : 'bg-blue-500'}`}>
+                                  <Quote size={12} className="text-white" />
+                                </div>
+                                
+                                {/* Stars */}
+                                <div className="flex gap-1 mb-3 ml-4">
+                                  {[...Array(5)].map((_, i) => (
+                                    <Star 
+                                      key={i} 
+                                      size={12} 
+                                      className={i < testimonial.rating ? 'text-yellow-400' : (isDark ? 'text-white/20' : 'text-gray-300')}
+                                      fill={i < testimonial.rating ? 'currentColor' : 'none'}
+                                    />
+                                  ))}
+                                </div>
+
+                                {/* Message */}
+                                <p className={`text-sm leading-relaxed mb-4 ${isDark ? 'text-white/70' : 'text-gray-600'}`}>
+                                  &ldquo;{testimonial.message}&rdquo;
+                                </p>
+
+                                {/* Author */}
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${testimonial.color} flex items-center justify-center text-white font-bold text-sm shadow-lg`}>
+                                    {testimonial.avatar}
+                                  </div>
+                                  <div>
+                                    <h4 className={`font-semibold text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                      {testimonial.name}
+                                    </h4>
+                                    <p className={`text-xs ${isDark ? 'text-white/50' : 'text-gray-500'}`}>
+                                      {testimonial.role}
+                                    </p>
+                                    <p className={`text-xs ${isDark ? 'text-[#C8F904]/70' : 'text-blue-500'}`}>
+                                      {testimonial.relationship}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                          ))}
+                      </div>
+                  </div>
+              )}
+
+              {activeTab === "Insights" && (
+                  <div className="animate-fadeIn">
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2.5 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500`}>
+                            <BookOpen size={20} className="text-white" />
+                          </div>
+                          <div>
+                            <h2 className={`text-xl font-light ${isDark ? 'text-white' : 'text-gray-900'}`}>Tech Insights</h2>
+                            <p className={`text-xs ${isDark ? 'text-white/40' : 'text-gray-500'}`}>Deep dives into real-world engineering</p>
+                          </div>
+                        </div>
+                        <div className={`flex items-center gap-2 text-xs ${isDark ? 'text-white/40' : 'text-gray-400'}`}>
+                          <TrendingUp size={14} />
+                          <span>{BLOG_POSTS.reduce((acc, post) => acc + parseFloat(post.views.replace('K', '')) * 1000, 0).toLocaleString()}+ total reads</span>
+                        </div>
+                      </div>
+                      
+                      {/* Featured Post */}
+                      <div 
+                        onClick={() => setSelectedBlogPost(BLOG_POSTS[0])}
+                        className={`relative rounded-2xl overflow-hidden mb-6 cursor-pointer group ${isDark ? 'bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 hover:border-white/20' : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-xl'}`}
+                      >
+                        <div className={`relative h-40 bg-gradient-to-br ${BLOG_POSTS[0].color} p-6 flex flex-col justify-end`}>
+                          <div className="absolute inset-0 bg-black/20" />
+                          <div className="absolute top-4 left-4 flex items-center gap-2">
+                            <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/20 text-white backdrop-blur-sm flex items-center gap-1">
+                              <Zap size={12} /> Featured
+                            </span>
+                          </div>
+                          <div className="absolute top-4 right-4 p-2 rounded-xl bg-white/20 backdrop-blur-sm">
+                            {React.createElement(BLOG_POSTS[0].icon, { size: 20, className: "text-white" })}
+                          </div>
+                          <div className="relative">
+                            <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white mb-2">
+                              {BLOG_POSTS[0].category}
+                            </span>
+                            <h3 className="text-xl font-bold text-white group-hover:text-white/90 transition-colors">
+                              {BLOG_POSTS[0].title}
+                            </h3>
+                          </div>
+                        </div>
+                        <div className="p-5">
+                          <p className={`text-sm mb-4 ${isDark ? 'text-white/60' : 'text-gray-600'}`}>
+                            {BLOG_POSTS[0].excerpt}
+                          </p>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4 text-xs">
+                              <span className={`flex items-center gap-1 ${isDark ? 'text-white/40' : 'text-gray-400'}`}>
+                                <Clock size={12} /> {BLOG_POSTS[0].readTime}
+                              </span>
+                              <span className={`flex items-center gap-1 ${isDark ? 'text-white/40' : 'text-gray-400'}`}>
+                                <Eye size={12} /> {BLOG_POSTS[0].views}
+                              </span>
+                            </div>
+                            <span className={`text-xs font-medium ${isDark ? 'text-[#C8F904]' : 'text-blue-600'}`}>
+                              Read full article →
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Other Posts Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {BLOG_POSTS.slice(1).map((post, idx) => (
+                              <BlogCard key={idx} post={post} onClick={() => setSelectedBlogPost(post)} />
                           ))}
                       </div>
                   </div>
